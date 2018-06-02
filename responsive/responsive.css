@@ -2,7 +2,6 @@
  width:130px;
  height:240px;
  background:url(software.png);
-
 }
 
 @media screen and (max-width: 1200px) {
@@ -22,3 +21,17 @@
  .software { background-position: -255px 0px;}
 }
 
+@media screen and (min-width: 900px) and (max-width: 1000px)
+{
+ .software { background-position: -382.5px 0px;}
+}
+
+@media screen and (min-width: 800px) and (max-width: 900px)
+{
+ .software { background-position: -510px 0px;}
+}
+
+@media screen and (min-width: 700px) and (max-width: 800px)
+{
+ .software { background-position: -637.5px 0px;}
+}
