@@ -14,6 +14,23 @@
 <div id="lyrics"></div>
 
 <script>
+  var video = document.getElementById("rickroll");
+  console.log("rick roll retrieved");
+
+  var lyrics = document.getElementById("lyrics");
+  console.log("lyrics retreived");
+  video.addEventListener("timeupdate",
+                         function() {
+     
+      var time = video.currentTime;
+
+      if (time > 2 && time < 5) 
+      {
+         lyrics.innerHTML = "<p> Looks like you've been rick rolled! </p>";
+      }
+
+      
+  }, false);
   // Complete this section and create a CSS file named style.css
 </script>
 </body>
