@@ -29,14 +29,27 @@
          lyrics.innerHTML = "<p> Looks like you've been rick rolled! </p>";
       }
  
-      if (time > 18 && time < 35)
+      else if (time > 18 && time < 35)
       {
 	 lyrics.innerHTML = "<p> We're no strangers to love </p>" +
                             "<p>You know the rules and so do I </p>" +
 			    "<p>A full commitment's what I'm thinking of</p>" +
 			    "<p>You wouldn't get this from any other guy </p>";
       }
-
+      else if (time > 35 && time < 43)
+      {
+         lyrics.innerHTML ="<p>I just wanna tell you how I'm feeling</p>"+
+                           "<p>Gotta make you understand </p>";
+      }
+      else if (time > 43 && time < 60)
+      {
+	 lyrics.innerHTML = "<p>Never gonna give you up</p>" + 
+		            "<p>Never gonna let you down</p>" + 
+                            "<p>Never gonna run around and desert you</p>" + 
+		            "<p>Never gonna make you cry</p>" +		   
+		            "<p>Never gonna say goodbye</p>" +
+		            "<p>Never gonna tell a lie and hurt you</p>";
+      }
       
   }, false);
   // Complete this section and create a CSS file named style.css
