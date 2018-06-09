@@ -1,0 +1,17 @@
+h1 {
+    padding: 15px;
+    color: darkgreen;
+    background-color: cornflowerblue;
+}
+
+h2 {
+    padding: 10px;
+    color: navy;
+    background-color: forestgreen;
+}
+
+#lyrics {
+    color: navy;
+    background-color: forestgreen;
+    padding: 10px;
+}
