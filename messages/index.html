@@ -9,11 +9,11 @@
     function parse() {
       jsonData = '[{"id":1,"content":"Do you really want to hurt me?","username":"Boy"},{"id":2,"content":"Do you really want to make me cry?","username":"George"}]';
       
-      message1 = jsonData[0]["content"];
-      message2 = jsonData[1]["content"];
- 
-      window.alert(message1);
-      window.alert(message2);
+      jsonParsed = JSON.parse(jsonData);
+  
+      window.alert(jsonParsed[0].content);
+      window.alert(jsonParsed[1].content);
+
     }
   </script>
 </head>
