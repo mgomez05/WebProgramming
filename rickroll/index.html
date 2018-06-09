@@ -19,6 +19,14 @@
 
   var lyrics = document.getElementById("lyrics");
   console.log("lyrics retreived");
+  
+  var verse_1_lyrics = "<p> We're no strangers to love </p>" +
+                       "<p>You know the rules and so do I </p>" +
+			                 "<p>A full commitment's what I'm thinking of</p>" +
+			                 "<p>You wouldn't get this from any other guy </p>";
+ 
+  var prechorus_1_lyrics = "<p>I just wanna tell you how I'm feeling</p>" +
+                           "<p>Gotta make you understand</p>";
 
   var chorus_lyrics = "<p>Never gonna give you up</p>" +
                       "<p>Never gonna let you down</p>" +
@@ -44,21 +52,12 @@
 
   var verse_3_lyrics = verse_2_lyrics;
 
-  var prechorus_3_lyrics = "<p>I just wanna tell you how I'm feeling</p>" +
-                           "<p>Gotta make you understand</p>";
-
-
-
-
-
-
+  var prechorus_3_lyrics = prechorus_1_lyrics;
 
   video.addEventListener("timeupdate",
                          function() {
      
       var time = video.currentTime;
-
-   
 
       if (time > 2 && time < 5) 
       {
@@ -66,10 +65,7 @@
       }
       else if (time > 18 && time < 35)
       {
-	        lyrics.innerHTML = "<p> We're no strangers to love </p>" +
-                             "<p>You know the rules and so do I </p>" +
-			                       "<p>A full commitment's what I'm thinking of</p>" +
-			                       "<p>You wouldn't get this from any other guy </p>";
+	        lyrics.innerHTML = verse_1_lyrics;
       }
       else if (time > 35 && time < 43)
       {
