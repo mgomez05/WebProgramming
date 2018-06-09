@@ -19,102 +19,106 @@
 
   var lyrics = document.getElementById("lyrics");
   console.log("lyrics retreived");
+
+  var chorus_lyrics = "<p>Never gonna give you up</p>" +
+                      "<p>Never gonna let you down</p>" +
+                      "<p>Never gonna run around and desert you</p>" +
+                      "<p>Never gonna make you cry</p>" +
+                      "<p>Never gonna say goodbye</p>" +
+                      "<p>Never gonna tell a lie and hurt you</p>";
+ 
+  var verse_2_lyrics = "<p>We've known each other for so long</p>" +                          "<p>Your heart's been aching, but</p>" +
+                       "<p>You're too shy to say it</p>" +
+                       "<p>Inside, we both know what's been going on</p>" +
+                       "<p>We know the game and we're gonna play it</p>";
+  
+  var prechorus_2_lyrics = "<p>And if you ask me how I'm feeling</p>" +
+                           "<p>Don't tell me you're too blind to see</p>";
+
+  var bridge_lyrics = "<p>(Ooh, give you up)</p>" +
+                      "<p>(Ooh, give you up)</p>" +
+                      "<p>Never gonna give, never gonna give</p>" +
+                      "<p>(Ooh, give you up)</p>" +
+                      "<p>Never gonna give, never gonna give</p>" +
+                      "<p>(Give you up)</p>";
+
+  var verse_3_lyrics = verse_2_lyrics;
+
+  var prechorus_3_lyrics = "<p>I just wanna tell you how I'm feeling</p>" +
+                           "<p>Gotta make you understand</p>";
+
+
+
+
+
+
+
   video.addEventListener("timeupdate",
                          function() {
      
       var time = video.currentTime;
 
-      var chorus_lyrics = "<p>Never gonna give you up</p>" +
-                          "<p>Never gonna let you down</p>" +
-                          "<p>Never gonna run around and desert you</p>" +
-                          "<p>Never gonna make you cry</p>" +
-                          "<p>Never gonna say goodbye</p>" +
-                          "<p>Never gonna tell a lie and hurt you</p>";
- 
-      var verse_2_lyrics = "<p>We've known each other for so long</p>" + 
-                           "<p>Your heart's been aching, but</p>" +
-                           "<p>You're too shy to say it</p>" +
-                           "<p>Inside, we both know what's been going on</p>" +
-                           "<p>We know the game and we're gonna play it</p>";
-  
-      var prechorus_2_lyrics = "<p>And if you ask me how I'm feeling</p>" +
-                               "<p>Don't tell me you're too blind to see</p>";
-
-      var bridge_lyrics = "<p>(Ooh, give you up)</p>" +
-                          "<p>(Ooh, give you up)</p>" +
-                          "<p>Never gonna give, never gonna give</p>" +
-                          "<p>(Ooh, give you up)</p>" +
-                          "<p>Never gonna give, never gonna give</p>" +
-                          "<p>(Give you up)</p>";
-
-      var verse_3_lyrics = verse_2_lyrics;
-
-      var prechorus_3_lyrics = "<p>I just wanna tell you how I'm feeling</p>" +
-                               "<p>Gotta make you understand</p>";
-
-
-
+   
 
       if (time > 2 && time < 5) 
       {
-         lyrics.innerHTML = "<p> Looks like you've been rick rolled! </p>";
+          lyrics.innerHTML = "<p> Looks like you've been rick rolled! </p>";
       }
- 
       else if (time > 18 && time < 35)
       {
-	 lyrics.innerHTML = "<p> We're no strangers to love </p>" +
-                            "<p>You know the rules and so do I </p>" +
-			    "<p>A full commitment's what I'm thinking of</p>" +
-			    "<p>You wouldn't get this from any other guy </p>";
+	        lyrics.innerHTML = "<p> We're no strangers to love </p>" +
+                             "<p>You know the rules and so do I </p>" +
+			                       "<p>A full commitment's what I'm thinking of</p>" +
+			                       "<p>You wouldn't get this from any other guy </p>";
       }
       else if (time > 35 && time < 43)
       {
-         lyrics.innerHTML ="<p>I just wanna tell you how I'm feeling</p>"+
+          lyrics.innerHTML ="<p>I just wanna tell you how I'm feeling</p>"+
                            "<p>Gotta make you understand </p>";
       }
       else if (time > 43 && time < 60)
       {
-	 lyrics.innerHTML = chorus_lyrics;
+	        lyrics.innerHTML = chorus_lyrics;
       }
       else if (time > 60 && time < 77)
       {
-         lyrics.innerHTML = verse_2_lyrics;
+          lyrics.innerHTML = verse_2_lyrics;
       }
       else if (time > 77 && time < 85)
       {
-         lyrics.innerHTML = prechorus_2_lyrics;
+          lyrics.innerHTML = prechorus_2_lyrics;
       }
       else if (time > 85 && time < 102)
       {
-         lyrics.innerHTML = "<h2>Chorus 2</h2>" + chorus_lyrics;
+          lyrics.innerHTML = "<h2>Chorus 2</h2>" + chorus_lyrics;
       }
       else if (time > 102 && time < 119)
       {
-         lyrics.innerHTML = "<h2>Chorus 3</h2>" + chorus_lyrics;
+          lyrics.innerHTML = "<h2>Chorus 3</h2>" + chorus_lyrics;
       }
       else if (time > 119 && time < 137)
       {
-         lyrics.innerHTML = bridge_lyrics;
+          lyrics.innerHTML = bridge_lyrics;
       }
       else if (time > 137 && time < 153)
       {
-         lyrics.innerHTML = verse_3_lyrics;
+          lyrics.innerHTML = verse_3_lyrics;
       }
       else if (time > 153 && time < 161)
       {
-         lyrics.innerHTML = prechorus_3_lyrics;
+          lyrics.innerHTML = prechorus_3_lyrics;
       } 
       else if (time > 161 && time < 178)
       { 
-         lyrics.innerHTML = "<h2>Chorus 4</h2>" + chorus_lyrics;
+          lyrics.innerHTML = "<h2>Chorus 4</h2>" + chorus_lyrics;
       }
       else if (time > 178 && time < 195)
       {
-         lyrics.innerHTML = "<h2>Chorus 5</h2>" + chorus_lyrics;
+          lyrics.innerHTML = "<h2>Chorus 5</h2>" + chorus_lyrics;
       }
       else if (time > 195)
       {
-         lyrics.innerHTML = "<h2>Chorus 6</h2>"+ chorus_lyrics;
+          lyrics.innerHTML = "<h2>Chorus 6</h2>"+ chorus_lyrics;
       }
 
 
