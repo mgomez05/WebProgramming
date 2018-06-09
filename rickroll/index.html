@@ -24,6 +24,14 @@
      
       var time = video.currentTime;
 
+      var chorus_lyrics = "<p>Never gonna give you up</p>" +
+                          "<p>Never gonna let you down</p>" +
+                          "<p>Never gonna run around and desert you</p>" +
+                          "<p>Never gonna make you cry</p>" +
+                          "<p>Never gonna say goodbye</p>" +
+                          "<p>Never gonna tell a lie and hurt you</p>";
+
+
       if (time > 2 && time < 5) 
       {
          lyrics.innerHTML = "<p> Looks like you've been rick rolled! </p>";
@@ -43,15 +51,44 @@
       }
       else if (time > 43 && time < 60)
       {
-	 lyrics.innerHTML = "<p>Never gonna give you up</p>" + 
-		            "<p>Never gonna let you down</p>" + 
-                            "<p>Never gonna run around and desert you</p>" + 
-		            "<p>Never gonna make you cry</p>" +		   
-		            "<p>Never gonna say goodbye</p>" +
-		            "<p>Never gonna tell a lie and hurt you</p>";
+	 lyrics.innerHTML = chorus_lyrics;
       }
+      else if (time > 60 && time < 85)
+      {
+         lyrics.innerHTML = "<p>Insert lyrics here</p>";
+      }
+      else if (time > 85 && time < 102)
+      {
+         lyrics.innerHTML = "<h2>Chorus 2</h2>" + chorus_lyrics;
+      }
+      else if (time > 102 && time < 119)
+      {
+         lyrics.innerHTML = "<h2>Chorus 3</h2>" + chorus_lyrics;
+      }
+      else if (time > 119 && time < 161)
+      {
+         lyrics.innerHTML = "<p>Insert lyrics here</p>";
+      }
+      else if (time > 161 && time < 178)
+      { 
+         lyrics.innerHTML = "<h2>Chorus 4</h2>" + chorus_lyrics;
+      }
+      else if (time > 178 && time < 195)
+      {
+         lyrics.innerHTML = "<h2>Chorus 5</h2>" + chorus_lyrics;
+      }
+      else if (time > 195)
+      {
+         lyrics.innerHTML = "<h2>Chorus 6</h2>"+ chorus_lyrics;
+      }
+
+
+
       
   }, false);
+
+  
+
   // Complete this section and create a CSS file named style.css
 </script>
 </body>
