@@ -63,6 +63,18 @@
       {
           lyrics.innerHTML = "<p> Looks like you've been rick rolled! </p>";
       }
+      if (time > 5 && time < 9)
+      {
+          lyrics.innerHTML = "<p>Sorry, it happens to everybody</p>";
+      }
+      if (time > 9 && time < 14)
+      {
+          lyrics.innerHTML = "<p>Now you'll just have to stay and wallow in your embarrassment</p>";
+      }
+      if (time > 14 && time < 18)
+      {
+          lyrics.innerHTML = "<p>Good luck!</p>";
+      }
       else if (time > 18 && time < 35)
       {
 	        lyrics.innerHTML = "<h2>Verse 1</h2>" + verse_1_lyrics;
