@@ -11,6 +11,11 @@ h2 {
     background-color: cornflowerblue;
 }
 
+#rickroll {
+    border: 15px solid cornflowerblue;
+    border-radius: 10px;
+}
+
 #lyrics {
     margin-top: 15px;
     width: 300px;
