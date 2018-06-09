@@ -69,9 +69,13 @@
       {
 	 lyrics.innerHTML = chorus_lyrics;
       }
-      else if (time > 60 && time < 85)
+      else if (time > 60 && time < 77)
       {
-         lyrics.innerHTML = "<p>Insert lyrics here</p>";
+         lyrics.innerHTML = verse_2_lyrics;
+      }
+      else if (time > 77 && time < 85)
+      {
+         lyrics.innerHTML = prechorus_2_lyrics;
       }
       else if (time > 85 && time < 102)
       {
@@ -81,10 +85,18 @@
       {
          lyrics.innerHTML = "<h2>Chorus 3</h2>" + chorus_lyrics;
       }
-      else if (time > 119 && time < 161)
+      else if (time > 119 && time < 137)
       {
          lyrics.innerHTML = "<p>Insert lyrics here</p>";
       }
+      else if (time > 137 && time < 153)
+      {
+         lyrics.innerHTML = verse_3_lyrics;
+      }
+      else if (time > 153 && time < 161)
+      {
+         lyrics.innerHTML = prechorus_3_lyrics;
+      } 
       else if (time > 161 && time < 178)
       { 
          lyrics.innerHTML = "<h2>Chorus 4</h2>" + chorus_lyrics;
