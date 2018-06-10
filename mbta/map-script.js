@@ -101,13 +101,80 @@ var bowdoin        = makePosition(42.361457,     -71.062129);
 
 // Commuter Rail Line: Fairmount
 //var southStation        = makePosition(42.361457,     -71.062129);
-var newmarket         = makePosition(42.361457,     -71.062129);
-var uphamsCorner      = makePosition(42.361457,     -71.062129);
-var fourCornersGeneva = makePosition(42.361457,     -71.062129);
-var talbotAve         = makePosition(42.361457,     -71.062129);
-var mortonStreet      = makePosition(42.361457,     -71.062129);
-var fairmount         = makePosition(42.361457,     -71.062129);
-var readville         = makePosition(42.361457,     -71.062129);
+var newmarket         = makePosition(42.326701,  -71.066314);
+var uphamsCorner      = makePosition(42.3191176, -71.0687222     );
+var fourCornersGeneva = makePosition(42.3050441, -71.0770153    );
+var talbotAve         = makePosition(42.2932,    -71.0784    );
+var mortonStreet      = makePosition(42.1650,    -71.0509)   ;
+var fairmount         = makePosition(42.1514,    -71.0709);
+var readville         = makePosition(42.1418,    -71.0801);
+
+var stations = [southStation, andrew, porter, harvard, JFKUMass, 
+                savin, park, broadway, northQuincy, shawmut,
+                davis, alewife, kendallMIT, charlesMGH, downtownCrossing, quincyCenter,
+                quincyAdams, ashmont, wollaston, fieldsCorner, centralSquare, braintree];
+
+var orangeStations = [oakGrove, malden, wellington, assembly, sullivan,
+                      communityCollege, northStation, haymarket, stateStreet,
+                      downtownCrossing,
+                      chinatown, tuftsMedical, backBay, massAve, ruggles,
+                      roxbury, jacksonSquare, stonyBrook, greenStreet,
+                      forestHills];
+
+var blueStations = [wonderland, revereBeach, beachmont, suffolkDowns, 
+                    orientHeights, woodIsland, airport, maverick, 
+                    aquarium, stateStreet, govCenter, bowdoin];
+
+// Callback function that gets called when the google API scrip is loaded
+function initMap() {
+    
+    // Create a new google map centered on south station and with zoom of 11
+    // (higher zoom means more zoomed in)
+    map = new google.maps.Map(document.getElementById('map'), {
+	    center: southStation,
+	    zoom: 11
+        });
+
+    // Create marker for each red line station
+    for (i = 0; i < stations.length; i++) makeMarker(stations[i]);
+
+    // Create marker for each orange line station
+    for (i = 0; i < orangeStations.length; i++) makeMarker(orangeStations[i]);
+
+    // Create marker for each blue line station
+    for (i = 0; i < blueStations.length; i++) makeMarker(blueStations[i]);
+
+
+    /******************/
+    /* Red Line Paths */
+    /******************/
+
+    // Create points and then path from Alewife to JFKUMass
+    var alewifeToJFKUMassPoints = [alewife, davis, porter, harvard, 
+                                   centralSquare, kendallMIT, charlesMGH, 
+                                   park, downtownCrossing, southStation, 
+                                   broadway, andrew, JFKUMass];
+    var alewifeToJFKUMassPath = createPath(alewifeToJFKUMassPoints, '#FF0000');
+    
+    // Create points and then path from JFKUMass to Ashmont
+    var JFKUMassToAshmontPoints = [JFKUMass, savin, fieldsCorner, shawmut, ashmont];
+    var JFKUMassToAshmontPath = createPath(JFKUMassToAshmontPoints, '#FF0000');
+
+    // Create points and then path from JFKUMass to Braintree
+    var JFKUMassToBraintreePoints = [JFKUMass, northQuincy, wollaston, quincyCenter, quincyAdams, braintree];
+    var JFKUMassToBraintreePath = createPath(JFKUMassToBraintreePoints, '#FF0000');
+
+    /*********************/
+    /* Orange Line Paths */
+    /*********************/
+    var orangeLinePath = createPath(orangeStations, 'DarkOrange');
+
+    /*********************/
+    /* Blue Line Paths   */
+    /*********************/
+    var orangeLinePath = createPath(blueStations, 'DodgerBlue');
+
+}
 
 // Commuter Rail Line: Fitchburg
 /*porter
@@ -271,70 +338,3 @@ southAttleboro
 providence*/
 
 // Commuter Rail Line: Foxboro
-
-var stations = [southStation, andrew, porter, harvard, JFKUMass, 
-                savin, park, broadway, northQuincy, shawmut,
-                davis, alewife, kendallMIT, charlesMGH, downtownCrossing, quincyCenter,
-                quincyAdams, ashmont, wollaston, fieldsCorner, centralSquare, braintree];
-
-var orangeStations = [oakGrove, malden, wellington, assembly, sullivan,
-                      communityCollege, northStation, haymarket, stateStreet,
-                      downtownCrossing,
-                      chinatown, tuftsMedical, backBay, massAve, ruggles,
-                      roxbury, jacksonSquare, stonyBrook, greenStreet,
-                      forestHills];
-
-var blueStations = [wonderland, revereBeach, beachmont, suffolkDowns, 
-                    orientHeights, woodIsland, airport, maverick, 
-                    aquarium, stateStreet, govCenter, bowdoin];
-
-// Callback function that gets called when the google API scrip is loaded
-function initMap() {
-    
-    // Create a new google map centered on south station and with zoom of 11
-    // (higher zoom means more zoomed in)
-    map = new google.maps.Map(document.getElementById('map'), {
-	    center: southStation,
-	    zoom: 11
-        });
-
-    // Create marker for each red line station
-    for (i = 0; i < stations.length; i++) makeMarker(stations[i]);
-
-    // Create marker for each orange line station
-    for (i = 0; i < orangeStations.length; i++) makeMarker(orangeStations[i]);
-
-    // Create marker for each blue line station
-    for (i = 0; i < blueStations.length; i++) makeMarker(blueStations[i]);
-
-
-    /******************/
-    /* Red Line Paths */
-    /******************/
-
-    // Create points and then path from Alewife to JFKUMass
-    var alewifeToJFKUMassPoints = [alewife, davis, porter, harvard, 
-                                   centralSquare, kendallMIT, charlesMGH, 
-                                   park, downtownCrossing, southStation, 
-                                   broadway, andrew, JFKUMass];
-    var alewifeToJFKUMassPath = createPath(alewifeToJFKUMassPoints, '#FF0000');
-    
-    // Create points and then path from JFKUMass to Ashmont
-    var JFKUMassToAshmontPoints = [JFKUMass, savin, fieldsCorner, shawmut, ashmont];
-    var JFKUMassToAshmontPath = createPath(JFKUMassToAshmontPoints, '#FF0000');
-
-    // Create points and then path from JFKUMass to Braintree
-    var JFKUMassToBraintreePoints = [JFKUMass, northQuincy, wollaston, quincyCenter, quincyAdams, braintree];
-    var JFKUMassToBraintreePath = createPath(JFKUMassToBraintreePoints, '#FF0000');
-
-    /*********************/
-    /* Orange Line Paths */
-    /*********************/
-    var orangeLinePath = createPath(orangeStations, 'DarkOrange');
-
-    /*********************/
-    /* Blue Line Paths   */
-    /*********************/
-    var orangeLinePath = createPath(blueStations, 'DodgerBlue');
-
-}
