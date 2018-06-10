@@ -91,6 +91,7 @@ var stations = [southStation, andrew, porter, harvard, JFKUMass,
 
 var orangeStations = [oakGrove, malden, wellington, assembly, sullivan,
                       communityCollege, northStation, haymarket, stateStreet,
+                      downtownCrossing,
                       chinatown, tuftsMedical, backBay, massAve, ruggles,
                       roxbury, jacksonSquare, stonyBrook, greenStreet,
                       forestHills];
@@ -105,13 +106,15 @@ function initMap() {
 	    zoom: 11
         });
 
-    // Create a marker for each station
-    for (i = 0; i < stations.length; i++)
-    {
-        makeMarker(stations[i]);
-    }
+    // Create marker for each red line station
+    for (i = 0; i < stations.length; i++) makeMarker(stations[i]);
 
+    // Create marker for each orange line station
     for (i = 0; i < orangeStations.length; i++) makeMarker(orangeStations[i]);
+
+    /******************/
+    /* Red Line Paths */
+    /******************/
 
     // Create points and then path from Alewife to JFKUMass
     var alewifeToJFKUMassPoints = [alewife, davis, porter, harvard, 
@@ -127,4 +130,10 @@ function initMap() {
     // Create points and then path from JFKUMass to Braintree
     var JFKUMassToBraintreePoints = [JFKUMass, northQuincy, wollaston, quincyCenter, quincyAdams, braintree];
     var JFKUMassToBraintreePath = createPath(JFKUMassToBraintreePoints);
+
+    /*********************/
+    /* Orange Line Paths */
+    /*********************/
+    var orangeLinePath = createPath(orangeStations);
+
 }
