@@ -18,14 +18,14 @@ function makeMarker(position)
 }
 
 // Creates a google maps polyline using the coordinateList argument
-function createPath(coordinateList)
+function createPath(coordinateList, color)
 {
     // Create polyline object
     var path = new google.maps.Polyline(
       {
         path: coordinateList,
         geodesic: true,
-        strokeColor: '#FF0000',
+        strokeColor: color,
         strokeOpacity: 1.0,
         strokeWeight: 2
       }
@@ -121,19 +121,19 @@ function initMap() {
                                    centralSquare, kendallMIT, charlesMGH, 
                                    park, downtownCrossing, southStation, 
                                    broadway, andrew, JFKUMass];
-    var alewifeToJFKUMassPath = createPath(alewifeToJFKUMassPoints);
+    var alewifeToJFKUMassPath = createPath(alewifeToJFKUMassPoints, '#FF0000');
     
     // Create points and then path from JFKUMass to Ashmont
     var JFKUMassToAshmontPoints = [JFKUMass, savin, fieldsCorner, shawmut, ashmont];
-    var JFKUMassToAshmontPath = createPath(JFKUMassToAshmontPoints);
+    var JFKUMassToAshmontPath = createPath(JFKUMassToAshmontPoints, '#FF0000');
 
     // Create points and then path from JFKUMass to Braintree
     var JFKUMassToBraintreePoints = [JFKUMass, northQuincy, wollaston, quincyCenter, quincyAdams, braintree];
-    var JFKUMassToBraintreePath = createPath(JFKUMassToBraintreePoints);
+    var JFKUMassToBraintreePath = createPath(JFKUMassToBraintreePoints, '#FF0000');
 
     /*********************/
     /* Orange Line Paths */
     /*********************/
-    var orangeLinePath = createPath(orangeStations);
+    var orangeLinePath = createPath(orangeStations, 'DarkOrange');
 
 }
