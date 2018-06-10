@@ -14,6 +14,25 @@ function makeMarker(lat, lon) {
                                          map: map});
 }
 
+// Creates a google maps polyline using the coordinateList argument
+function createPath(coordinateList)
+{
+    // Create polyline object
+    var path = new google.maps.Polyline(
+      {
+        path: coordinateList,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      }
+                                       );
+
+    path.setMap(map);
+
+    return path;
+}
+
 var map;
 
 var southStation      = makePosition(42.352271,   -71.05524200000001);
@@ -57,23 +76,14 @@ function initMap() {
     }
 
     // Set points of the red line illustrating the path of MBTA
-    var flightPlanCoordinates = [
+    var alewifeToJFKUMassCoordinates = [
         alewife,
         davis, porter, harvard, centralSquare,
         kendallMIT, charlesMGH, park, downtownCrossing,
         southStation, broadway, andrew, JFKUMass
       ];
 
-    // Create polyline object
-    var flightPath = new google.maps.Polyline({
-        path: flightPlanCoordinates,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2
-      });
-
-      flightPath.setMap(map);
+    var alewifeToJFKUMass = createPath(alewifeToJFKUMassCoordinates);
     
 
     //var southStationMarker = makeMarker(southStation.lat, southStation.lng);
