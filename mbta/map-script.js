@@ -84,6 +84,21 @@ var stonyBrook       = makePosition(42.3192008078, -71.1028289795);
 var greenStreet      = makePosition(42.3105691548, -71.107313633);
 var forestHills      = makePosition(42.300362,     -71.113411);
 
+// Blue Line Stations
+var wonderland     = makePosition(42.414246,     -70.992144);
+var revereBeach    = makePosition(42.4071633648, -70.992193222);
+var beachmont      = makePosition(42.3974187182, -70.992193222);
+var suffolkDowns   = makePosition(42.3884015915, -71.0003578663);
+var orientHeights  = makePosition(42.386676,     -71.006628);
+var woodIsland     = makePosition(42.380797,     -71.023394);
+var airport        = makePosition(42.3727334327, -71.035194397);
+var maverick       = makePosition(42.36886,      -71.039926);
+var aquarium       = makePosition(42.359456,     -71.05357);
+//var stateStreet      = makePosition(42.300362,     -71.113411);
+var govCenter      = makePosition(42.359297,     -71.059895);
+var bowdoin        = makePosition(42.361457,     -71.062129);
+
+
 var stations = [southStation, andrew, porter, harvard, JFKUMass, 
                 savin, park, broadway, northQuincy, shawmut,
                 davis, alewife, kendallMIT, charlesMGH, downtownCrossing, quincyCenter,
