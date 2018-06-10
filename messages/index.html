@@ -12,17 +12,14 @@
       
       jsonParsed = JSON.parse(jsonData);
 
-      var message1 = jsonParsed[0].content;
-     
-      var message2 = jsonParsed[1].content;
-     
-      var name1    = jsonParsed[0].username;
-      var name2    = jsonParsed[1].username;
-
       var messages = document.getElementById("messages");
 
-      messages.innerHTML += "<p>" + message1 + "</p>" + "<p>" + name1 +  "</p>";
-      messages.innerHTML += "<p>" + message2 + "</p>" + "<p>" + name2 +  "</p>"
+      for (i = 0; i < jsonParsed.length; i++) 
+      {
+          var message = jsonParsed[i].content;
+          var name    = jsonParsed[i].username;
+          messages.innerHTML += "<p>" + message + "</p>" + "<p>" + name +  "</p>";
+      }
 
     }
   </script>
