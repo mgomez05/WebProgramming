@@ -99,6 +99,179 @@ var govCenter      = makePosition(42.359297,     -71.059895);
 var bowdoin        = makePosition(42.361457,     -71.062129);
 
 
+// Commuter Rail Line: Fairmount
+//var southStation        = makePosition(42.361457,     -71.062129);
+var newmarket         = makePosition(42.361457,     -71.062129);
+var uphamsCorner      = makePosition(42.361457,     -71.062129);
+var fourCornersGeneva = makePosition(42.361457,     -71.062129);
+var talbotAve         = makePosition(42.361457,     -71.062129);
+var mortonStreet      = makePosition(42.361457,     -71.062129);
+var fairmount         = makePosition(42.361457,     -71.062129);
+var readville         = makePosition(42.361457,     -71.062129);
+
+// Commuter Rail Line: Fitchburg
+/*porter
+belmont
+waverley
+waltham
+brandeisRoberts
+kendalGreen
+lincoln
+concord
+westConcord
+southActon
+littletonRoute495
+ayer
+shirley
+northleominster
+fitchburg
+wachusett*/
+
+// Commuter Rail Line: Framingham/Worcester
+/*
+southStation
+backBay
+yawkey
+bostonLanding
+newtonville
+westNewton
+auburndale
+wellesleyFarms
+wellesleyHills
+wellesleySquare
+natickCenter
+westNatick
+framingham
+*/
+
+// Commuter Rail Line: Franklin
+/*southStation
+backBay
+ruggles
+readville
+endicott
+dedhamCorpCenter
+islington
+norwoodDepot
+norwoodCentral
+windsorGardens
+walpole
+norfolk
+franklin
+forgePark495*/
+
+// Commuter Rail Line: Greenbush
+/*southStation
+JFKUMass
+quincyCenter
+weymouthLandingEastBraintree
+eastWeymouth
+westHingham
+nantasketJunction
+cohasset
+northScituate
+greenbush*/
+
+// Commuter Rail Line: Haverhill
+/*northStation
+malden
+wyomingHill
+melroseCedarPark
+melroseHighlands
+greenwood
+wakefield
+reading
+northWilmington
+ballardvale
+andover
+lawrence
+bradford
+haverhill*/
+
+// Commuter Rail Line: Kingston/Plymouth
+/*southStation
+JFKUMass
+quincyCenter
+braintree
+southWeymouth
+abington
+whitman
+hanson
+halifax
+kingston
+plymouth*/
+
+// Commuter Rail Line: Lowell
+/*northStation
+westmMedford
+wedgemere
+winchesterCenter
+andersonWoburn
+wilmington
+northBillerica
+lowell*/
+
+// Commuter Rail Line: Middleborough/Lakeville
+/*southStation
+JFKUMass
+quincyCenter
+braintree
+holbrookRandolph
+montello
+brockton
+campello
+bridgewater
+middleboroughLakeville
+*/
+
+// Commuter Rail Line: Needham
+/*southStation
+backBay
+ruggles
+forestHills
+roslindaleVillage
+bellevue
+highland
+westRoxbury
+hersey
+needhamJunction
+needhamCenter
+needhamHeights*/
+
+// Commuter Rail Line: Newburyport/Rockport
+/*northStation
+chelsea
+lynn
+swampscott
+salem
+beverly
+northBeverly
+hamiltonWenham
+ipswich
+rowley
+newburyport
+montserrat
+beverlyFarms
+manchester
+westGloucester
+gloucester
+rockport*/
+
+// Commuter Rail Line: Providence/Stoughton
+/*southStation
+backBay
+ruggles
+hydePark
+route128
+cantonJunction
+sharon
+mansfield
+attleboro
+southAttleboro
+providence*/
+
+// Commuter Rail Line: Foxboro
+
 var stations = [southStation, andrew, porter, harvard, JFKUMass, 
                 savin, park, broadway, northQuincy, shawmut,
                 davis, alewife, kendallMIT, charlesMGH, downtownCrossing, quincyCenter,
