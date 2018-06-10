@@ -4,7 +4,7 @@ function makePosition(latitude, longitude) {
 }
 
 
-var trainIcon = {url: "train.png"};
+var trainIcon = {url: "train-small.png"};
 function makeMarker(lat, lon) {
 
     var iconBase     = 'https://maps.google.com/mapfiles/kml/shapes/';
