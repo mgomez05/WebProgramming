@@ -100,14 +100,13 @@ var bowdoin        = makePosition(42.361457,     -71.062129);
 
 
 // Commuter Rail Line: Fairmount
-//var southStation        = makePosition(42.361457,     -71.062129);
 var newmarket         = makePosition(42.326701,  -71.066314);
-var uphamsCorner      = makePosition(42.3191176, -71.0687222     );
-var fourCornersGeneva = makePosition(42.3050441, -71.0770153    );
-var talbotAve         = makePosition(42.2932,    -71.0784    );
-var mortonStreet      = makePosition(42.1650,    -71.0509)   ;
-var fairmount         = makePosition(42.1514,    -71.0709);
-var readville         = makePosition(42.1418,    -71.0801);
+var uphamsCorner      = makePosition(42.3191176, -71.0687222);
+var fourCornersGeneva = makePosition(42.3050441, -71.0770153);
+var talbotAve         = makePosition(42.2932,    -71.0784);
+var mortonStreet      = makePosition(42.2810,    -71.0855);
+var fairmount         = makePosition(42.2536,    -71.1193);
+var readville         = makePosition(42.2384,    -71.1332);
 
 var stations = [southStation, andrew, porter, harvard, JFKUMass, 
                 savin, park, broadway, northQuincy, shawmut,
@@ -124,6 +123,10 @@ var orangeStations = [oakGrove, malden, wellington, assembly, sullivan,
 var blueStations = [wonderland, revereBeach, beachmont, suffolkDowns, 
                     orientHeights, woodIsland, airport, maverick, 
                     aquarium, stateStreet, govCenter, bowdoin];
+
+var fairmountStations =  [southStation, newmarket, uphamsCorner, fourCornersGeneva,
+                         talbotAve, mortonStreet, fairmount, readville];
+
 
 // Callback function that gets called when the google API scrip is loaded
 function initMap() {
@@ -143,6 +146,9 @@ function initMap() {
 
     // Create marker for each blue line station
     for (i = 0; i < blueStations.length; i++) makeMarker(blueStations[i]);
+
+    // Create marker for each fairmount line station
+    for (i = 0; i < fairmountStations.length; i++) makeMarker(fairmountStations[i]);
 
 
     /******************/
@@ -173,6 +179,9 @@ function initMap() {
     /* Blue Line Paths   */
     /*********************/
     var orangeLinePath = createPath(blueStations, 'DodgerBlue');
+
+    // Fairmount line path
+    var fairmountLinePath = createPath(fairmountStations, 'SlateBlue');
 
 }
 
