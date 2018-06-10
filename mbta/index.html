@@ -10,9 +10,17 @@
 <body>
   <div id="map"></div>
   <script>
+
+      function makePosition(latitude, longitude) {
+        return {lat: latitude, lng: longitude};
+      }
+
       var map;
 
-      var southStation = {lat: 42.352271, lng: -71.05524200000001};
+      var southStation = makePosition(42.352271, -71.05524200000001);
+      
+
+    
       
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -21,8 +29,14 @@
         });
 
         var southStaionMarker = new google.maps.Marker({position: southStation, map: map});
-        //var marker = new google.maps.Marker({position: uluru, map: map});
+        /*var AndrewMarker      = new google.maps.Marker({position: southStation, map: map});
+        var PorterMarker      = new google.maps.Marker({position: southStation, map: map});
+        var HarvardMarker     = new google.maps.Marker({position: southStation, map: map});
+        var JFKUMassMarker    = new google.maps.Marker({position: southStation, map: map});
+        var AndrewMarker      = new google.maps.Marker({position: southStation, map: map});*/
+
       }
+
 
       
   </script>
