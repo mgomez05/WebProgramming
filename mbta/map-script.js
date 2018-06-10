@@ -111,6 +111,10 @@ var orangeStations = [oakGrove, malden, wellington, assembly, sullivan,
                       roxbury, jacksonSquare, stonyBrook, greenStreet,
                       forestHills];
 
+var blueStations = [wonderland, revereBeach, beachmont, suffolkDowns, 
+                    orientHeights, woodIsland, airport, maverick, 
+                    aquarium, stateStreet, govCenter, bowdoin];
+
 // Callback function that gets called when the google API scrip is loaded
 function initMap() {
     
@@ -126,6 +130,10 @@ function initMap() {
 
     // Create marker for each orange line station
     for (i = 0; i < orangeStations.length; i++) makeMarker(orangeStations[i]);
+
+    // Create marker for each blue line station
+    for (i = 0; i < blueStations.length; i++) makeMarker(blueStations[i]);
+
 
     /******************/
     /* Red Line Paths */
@@ -150,5 +158,10 @@ function initMap() {
     /* Orange Line Paths */
     /*********************/
     var orangeLinePath = createPath(orangeStations, 'DarkOrange');
+
+    /*********************/
+    /* Blue Line Paths   */
+    /*********************/
+    var orangeLinePath = createPath(blueStations, 'DodgerBlue');
 
 }
