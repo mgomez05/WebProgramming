@@ -8,11 +8,11 @@ function makePosition(latitude, longitude) {
 // Custom Marker icon for MBTA map (a picture of a train) 
 var trainIcon = {url: "train-small.png"};
 
-// Makes a marker for the coordinate with the specified latitude and longitude
-function makeMarker(lat, lon) 
+// Makes a marker for the coordinate passed as an argument
+function makeMarker(position) 
 {
     var iconBase     = 'https://maps.google.com/mapfiles/kml/shapes/';
-    var marker = new google.maps.Marker({position: makePosition(lat, lon), 
+    var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
                                          icon: trainIcon,
                                          map: map});
 }
@@ -80,7 +80,7 @@ function initMap() {
     // Create a marker for each station
     for (i = 0; i < stations.length; i++)
     {
-        makeMarker(stations[i].lat, stations[i].lng);
+        makeMarker(stations[i]);
     }
 
     // Create points and then path from Alewife to JFKUMass
