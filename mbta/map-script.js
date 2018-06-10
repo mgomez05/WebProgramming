@@ -75,26 +75,18 @@ function initMap() {
         makeMarker(stations[i].lat, stations[i].lng);
     }
 
-    // Set points of the red line illustrating the path of MBTA
-    var alewifeToJFKUMassCoordinates = [
-        alewife,
-        davis, porter, harvard, centralSquare,
-        kendallMIT, charlesMGH, park, downtownCrossing,
-        southStation, broadway, andrew, JFKUMass
-      ];
-
-    var alewifeToJFKUMass = createPath(alewifeToJFKUMassCoordinates);
+    // Create points and then path from Alewife to JFKUMass
+    var alewifeToJFKUMassPoints = [alewife, davis, porter, harvard, 
+                                   centralSquare, kendallMIT, charlesMGH, 
+                                   park, downtownCrossing, southStation, 
+                                   broadway, andrew, JFKUMass];
+    var alewifeToJFKUMassPath = createPath(alewifeToJFKUMassPoints);
     
+    // Create points and then path from JFKUMass to Ashmont
+    var JFKUMassToAshmontPoints = [JFKUMass, savin, fieldsCorner, shawmut, ashmont];
+    var JFKUMassToAshmontPath = createPath(JFKUMassToAshmontPoints);
 
-    //var southStationMarker = makeMarker(southStation.lat, southStation.lng);
-    
-   
-      
-    //new google.maps.Marker({position: southStation, map: map});
-    //var AndrewMarker      = new google.maps.Marker({position: andrew, map: map});
-    //var PorterMarker      = new google.maps.Marker({position: porter, map: map});
-    /*var HarvardMarker     = new google.maps.Marker({position: southStation, map: map});
-      var JFKUMassMarker    = new google.maps.Marker({position: southStation, map: map});
-      var AndrewMarker      = new google.maps.Marker({position: southStation, map: map});*/
-
+    // Create points and then path from JFKUMass to Braintree
+    var JFKUMassToBraintreePoints = [JFKUMass, northQuincy, wollaston, quincyCenter, quincyAdams, braintree];
+    var JFKUMassToBraintreePath = createPath(JFKUMassToBraintreePoints);
 }
