@@ -7,12 +7,21 @@
   <title>Messages</title>
   <script>
     function parse() {
+
       jsonData = '[{"id":1,"content":"Do you really want to hurt me?","username":"Boy"},{"id":2,"content":"Do you really want to make me cry?","username":"George"}]';
       
       jsonParsed = JSON.parse(jsonData);
-  
-      window.alert(jsonParsed[0].content);
-      window.alert(jsonParsed[1].content);
+
+      var message1 = jsonParsed[0].content;
+     
+      var message2 = jsonParsed[1].content;
+     
+
+      var messages = document.getElementById("messages");
+
+
+      messages.innerHTML += "<p>" + message1 + "</p>";
+      messages.innerHTML += "<p>" + message2 + "</p>";
 
     }
   </script>
