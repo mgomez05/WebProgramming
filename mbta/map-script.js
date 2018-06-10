@@ -3,13 +3,20 @@ function makePosition(latitude, longitude) {
     return {lat: latitude, lng: longitude};
 }
 
+
+var trainIcon = {url: "train.png"};
 function makeMarker(lat, lon) {
-    var marker = new google.maps.Marker({position: makePosition(lat, lon), map: map});
+
+    var iconBase     = 'https://maps.google.com/mapfiles/kml/shapes/';
+    var marker = new google.maps.Marker({position: makePosition(lat, lon), 
+                                         icon: trainIcon,
+                                         map: map});
 }
 
 var map;
 
-var southStation      = makePosition(42.352271,   -71.05524200000001);
+var southStation = makePosition(42.352271,   -71.05524200000001);
+
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
