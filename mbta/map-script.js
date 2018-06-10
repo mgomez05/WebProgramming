@@ -62,10 +62,38 @@ var fieldsCorner      = makePosition(42.300093,   -71.061667);
 var centralSquare     = makePosition(42.365486,   -71.103802);
 var braintree         = makePosition(42.2078543,  -71.0011385);
 
+// Orange line stations
+var oakGrove         = makePosition(42.4353430165, -71.071189642);
+var malden           = makePosition(42.4273133438, -71.073871851);
+var wellington       = makePosition(42.4042955853, -71.0770046711);
+var assembly         = makePosition(42.392811,     -71.077257);
+var sullivan         = makePosition(42.3857548427, -71.0770797729);
+var communityCollege = makePosition(42.3726383181, -71.0702776909);
+var northStation     = makePosition(42.365512,     -71.061423);
+var haymarket        = makePosition(42.362498,     -71.058996);
+var stateStreet      = makePosition(42.358897,     -71.057795);
+// downtown crossing         = makePosition(,);
+var chinatown        = makePosition(42.352228,     -71.062892);
+var tuftsMedical     = makePosition(42.349873,     -71.063795);
+var backBay          = makePosition(42.3472772215, -71.0760390759);
+var massAve          = makePosition(42.3415519196, -71.0832166672);
+var ruggles          = makePosition(42.3356674788, -71.0905230045);
+var roxbury          = makePosition(42.3315274209, -71.0954046249);
+var jacksonSquare    = makePosition(42.3227388088, -71.1000823975);
+var stonyBrook       = makePosition(42.3192008078, -71.1028289795);
+var greenStreet      = makePosition(42.3105691548, -71.107313633);
+var forestHills      = makePosition(42.300362,     -71.113411);
+
 var stations = [southStation, andrew, porter, harvard, JFKUMass, 
                 savin, park, broadway, northQuincy, shawmut,
                 davis, alewife, kendallMIT, charlesMGH, downtownCrossing, quincyCenter,
                 quincyAdams, ashmont, wollaston, fieldsCorner, centralSquare, braintree];
+
+var orangeStations = [oakGrove, malden, wellington, assembly, sullivan,
+                      communityCollege, northStation, haymarket, stateStreet,
+                      chinatown, tuftsMedical, backBay, massAve, ruggles,
+                      roxbury, jacksonSquare, stonyBrook, greenStreet,
+                      forestHills];
 
 // Callback function that gets called when the google API scrip is loaded
 function initMap() {
@@ -82,6 +110,8 @@ function initMap() {
     {
         makeMarker(stations[i]);
     }
+
+    for (i = 0; i < orangeStations.length; i++) makeMarker(orangeStations[i]);
 
     // Create points and then path from Alewife to JFKUMass
     var alewifeToJFKUMassPoints = [alewife, davis, porter, harvard, 
