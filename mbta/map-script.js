@@ -11,16 +11,13 @@ var map;
 
 var southStation      = makePosition(42.352271,   -71.05524200000001);
 
-    
-      
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
 	    center: southStation,
-	    zoom: 12
+	    zoom: 11
         });
 
-    var southStaionMarker = makeMarker(southStation.lat, southStation.lng);
-    
+    var southStationMarker = makeMarker(southStation.lat, southStation.lng);
     
     var andrew            = makeMarker(42.330154,   -71.05765);
     var porter            = makeMarker(42.3884,     -71.11914899999999);
