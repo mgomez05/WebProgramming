@@ -1,13 +1,16 @@
 
+
+// Takes a latitude and a longitude and returns a position object
 function makePosition(latitude, longitude) {
     return {lat: latitude, lng: longitude};
 }
 
-
+// Custom Marker icon for MBTA map (a picture of a train) 
 var trainIcon = {url: "train-small.png"};
 
-function makeMarker(lat, lon) {
-
+// Makes a marker for the coordinate with the specified latitude and longitude
+function makeMarker(lat, lon) 
+{
     var iconBase     = 'https://maps.google.com/mapfiles/kml/shapes/';
     var marker = new google.maps.Marker({position: makePosition(lat, lon), 
                                          icon: trainIcon,
@@ -27,7 +30,7 @@ function createPath(coordinateList)
         strokeWeight: 2
       }
                                        );
-
+    // Put the polyline path on the map  
     path.setMap(map);
 
     return path;
@@ -35,6 +38,7 @@ function createPath(coordinateList)
 
 var map;
 
+// Red line stations
 var southStation      = makePosition(42.352271,   -71.05524200000001);
 var andrew            = makePosition(42.330154,   -71.05765);
 var porter            = makePosition(42.3884,     -71.11914899999999);
@@ -63,7 +67,11 @@ var stations = [southStation, andrew, porter, harvard, JFKUMass,
                 davis, alewife, kendallMIT, charlesMGH, downtownCrossing, quincyCenter,
                 quincyAdams, ashmont, wollaston, fieldsCorner, centralSquare, braintree];
 
+// Callback function that gets called when the google API scrip is loaded
 function initMap() {
+    
+    // Create a new google map centered on south station and with zoom of 11
+    // (higher zoom means more zoomed in)
     map = new google.maps.Map(document.getElementById('map'), {
 	    center: southStation,
 	    zoom: 11
