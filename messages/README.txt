@@ -3,7 +3,7 @@ README for Lab 7 Messages Part 1
 
 Aspects of The Work That Have Been Correctly Implemented
 ------------------
-The Javascript function correctly parses the JSON data and outputs the messages in the messages section of the HTML as ordered in the HTML file. I have also avoided modifying the HTML file body and avoided using jQuery.
+The Javascript function correctly parses the JSON data and outputs the messages in the messages section of the HTML as they were originally ordered. I have also avoided modifying the HTML file body and avoided using jQuery.
 
 Collaboration Notes
 ----------------
