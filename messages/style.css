@@ -5,11 +5,12 @@
 .message {
     background-color: lime;
     border-radius: 3px;
-    padding: 3px;
+    padding: 6px 10px;
 }
 
 #messages {
-    padding: 5px 5px;
+    padding: 5px 15px;
     background-color: limegreen;
+    border-radius: 5px;
     color:darkblue;
 }
