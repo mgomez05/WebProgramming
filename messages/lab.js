@@ -6,11 +6,12 @@ function parse()
 
         if (this.readyState == 4 && this.status == 200) 
         {
-         document.getElementById("demo").innerHTML = xhttp.responseText;
+            console.log(xhttp.responseText);
+            document.getElementById("messages").innerHTML = xhttp.responseText;
         }
     };
 
-    xhttp.open("GET", "filename", true);
-    
+    xhttp.open("GET", "data.json", true);
+
     xhttp.send();
 }
