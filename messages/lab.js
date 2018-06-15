@@ -20,7 +20,7 @@ function parse()
                       var message = jsonParsed[i].content;
                       var name    = jsonParsed[i].username;
                       
-                      messages.innerHTML += "<p>" + message + "</p>" + "<p>" + name +  "</p>";
+                      messages.innerHTML += "<p>" + message + " <span class='author'>" + name + "</span>" + "</p>";
             }
         
             //messages.innerHTML = xhttp.responseText;
