@@ -15,9 +15,10 @@ Time Spent
 ----------------
 I spent roughly 4 hours on this assignment.
 
-Responses to Important Questions
-----------------
-Part 2:
+Part 2 Response:
+-----------------
 The index.html doesn't work on chrome or safari, but it does work on firefox. This should not work because it is considered a cross-origin error.
 
-Part 3:
+Part 3 Response:
+-----------------
+Modifying the data.json request to the uri https://messagehub.herokuapp.com/messages.json did not work. In fact, unlike in part 2, it did not work in any of the browsers I tested (safari, chrome, or firefox).
