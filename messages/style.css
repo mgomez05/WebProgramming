@@ -1,1 +1,9 @@
-/* Your CSS here... */
+.author {
+    font-style: italic;
+}
+
+#messages {
+    padding: 5px 5px;
+    background-color: limegreen;
+    color:darkblue;
+}
