@@ -22,3 +22,7 @@ The index.html doesn't work on chrome or safari, but it does work on firefox. Th
 Part 3 Response:
 -----------------
 Modifying the data.json request to the uri https://messagehub.herokuapp.com/messages.json did not work. In fact, unlike in part 2, it did not work in any of the browsers I tested (safari, chrome, or firefox).
+
+Red Question Response:
+------------------------
+It is not possible to request data from a different origin (such as the one located herokuuapp.com) using an XMLHTTPRequest because of the same origin policy. In order for two pages to have the same origin, they must use the same protocol, and have the same host and port number. You can also not request them from your local machine for this reason. The herokuapp website and localhost:8000 do not have the same origin, and similarly, https://messagehub.herokuapp.com/messages.json and localhost:8000 do not have the same origin. Thus, my website, which is hosted at localhost:8000, cannot request data from those sources.
