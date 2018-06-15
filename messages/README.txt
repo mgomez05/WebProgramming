@@ -17,3 +17,7 @@ I spent roughly 4 hours on this assignment.
 
 Responses to Important Questions
 ----------------
+Part 2:
+The index.html doesn't work on chrome or safari, but it does work on firefox. This should not work because it is considered a cross-origin error.
+
+Part 3:
