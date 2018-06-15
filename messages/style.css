@@ -1,8 +1,10 @@
 .author {
     font-style: italic;
+    font-size: 20px;
 }
 
 .message {
+    font-size: 25px;
     background-color: lime;
     border-radius: 3px;
     padding: 6px 10px;
