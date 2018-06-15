@@ -2,6 +2,12 @@
     font-style: italic;
 }
 
+.message {
+    background-color: lime;
+    border-radius: 3px;
+    padding: 3px;
+}
+
 #messages {
     padding: 5px 5px;
     background-color: limegreen;
