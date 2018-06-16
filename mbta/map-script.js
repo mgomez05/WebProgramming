@@ -5,6 +5,7 @@ var trainIcon = {url: "train-small.png"};
 // Info window for different stations
 var infoWindow;
 
+var allStations = [];
 
 // Takes a latitude and a longitude and returns a position object
 function makePosition(latitude, longitude) {
@@ -315,6 +316,13 @@ function initMap()
 	    center: southStation,
 	    zoom: 11
         });
+    
+    // Add each of the stations to a list of all the stations on the map
+    addToAllStations(stations);
+    addToAllStations(orangeStations);
+    addToAllStations(blueStations);
+    addToAllStations(fairmountStations);
+    addToAllStations(stations);
 
     // Create station marker for each type of station
     makeStationMarkers(stations);
@@ -368,6 +376,14 @@ function initMap()
         handleLocationError(false, infoWindow, map.getCenter());
     }
 
+}
+
+function addToAllStations(stations)
+{
+    for (i = 0; i < stations.length; i++)
+    {
+        allStations.push(stations[i]);
+    }
 }
 
 // Called when there's an error getting the user's current location
