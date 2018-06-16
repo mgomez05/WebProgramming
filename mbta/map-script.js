@@ -175,28 +175,28 @@ function displayTrainInfo(stopID, lat, lng)
 var map;
 
 // Red line stations
-var southStation      = makeStation(42.352271,   -71.05524200000001, "South Station");
-var andrew            = makeStation(42.330154,   -71.05765,          "Andrew");
-var porter            = makeStation(42.3884,     -71.11914899999999, "Porter");
-var harvard           = makeStation(42.373362,   -71.118956,         "Harvard");
-var JFKUMass          = makeStation(42.320685,   -71.052391,         "JFK/UMass");
-var savin             = makeStation(42.31129,    -71.053331,         "Savin Hill");
-var park              = makeStation(42.35639457, -71.0624242,        "Park Street");
-var broadway          = makeStation(42.342622,   -71.056967,         "Broadway");
-var northQuincy       = makeStation(42.275275,   -71.029583,         "North Quincy");
-var shawmut           = makeStation(42.29312583, -71.06573796000001, "Shawmut");
-var davis             = makeStation(42.39674,    -71.121815,         "Davis Square");
-var alewife           = makeStation(42.395428,   -71.142483,         "Alewife");
-var kendallMIT        = makeStation(42.36249079, -71.08617653,       "Kendall/MIT");
-var charlesMGH        = makeStation(42.361166,   -71.070628,         "Charles/MGH");
-var downtownCrossing  = makeStation(42.355518,   -71.060225,         "Downtown Crossing");
-var quincyCenter      = makeStation(42.251809,   -71.005409,         "Quincy Center");
-var quincyAdams       = makeStation(42.233391,   -71.007153,         "Quincy Adams");
-var ashmont           = makeStation(42.284652,   -71.06448899999999, "Ashmont");
-var wollaston         = makeStation(42.2665139,  -71.0203369,        "Wollaston");
-var fieldsCorner      = makeStation(42.300093,   -71.061667,         "Fields Corner");
-var centralSquare     = makeStation(42.365486,   -71.103802,         "CentralSquare");
-var braintree         = makeStation(42.2078543,  -71.0011385,        "Braintree");
+var southStation      = makeStation(42.352271,   -71.05524200000001, "South Station",     "place-sstat");
+var andrew            = makeStation(42.330154,   -71.05765,          "Andrew",            "place-andrw");
+var porter            = makeStation(42.3884,     -71.11914899999999, "Porter",            "place-portr");
+var harvard           = makeStation(42.373362,   -71.118956,         "Harvard",           "place-harsq");
+var JFKUMass          = makeStation(42.320685,   -71.052391,         "JFK/UMass",         "place-jfk");
+var savin             = makeStation(42.31129,    -71.053331,         "Savin Hill",        "place-shmnl");
+var park              = makeStation(42.35639457, -71.0624242,        "Park Street",       "place-pktrm");
+var broadway          = makeStation(42.342622,   -71.056967,         "Broadway",          "place-brdwy");
+var northQuincy       = makeStation(42.275275,   -71.029583,         "North Quincy",      "place-nqncy");
+var shawmut           = makeStation(42.29312583, -71.06573796000001, "Shawmut",           "place-smmnl");
+var davis             = makeStation(42.39674,    -71.121815,         "Davis Square",      "place-davis");
+var alewife           = makeStation(42.395428,   -71.142483,         "Alewife",           "place-alfcl");
+var kendallMIT        = makeStation(42.36249079, -71.08617653,       "Kendall/MIT",       "place-knncl");
+var charlesMGH        = makeStation(42.361166,   -71.070628,         "Charles/MGH",       "place-chmnl");
+var downtownCrossing  = makeStation(42.355518,   -71.060225,         "Downtown Crossing", "place-dwnxg");
+var quincyCenter      = makeStation(42.251809,   -71.005409,         "Quincy Center",     "place-qnctr");
+var quincyAdams       = makeStation(42.233391,   -71.007153,         "Quincy Adams",      "place-qamnl");
+var ashmont           = makeStation(42.284652,   -71.06448899999999, "Ashmont",           "place-asmnl");
+var wollaston         = makeStation(42.2665139,  -71.0203369,        "Wollaston",         "place-wlsta");
+var fieldsCorner      = makeStation(42.300093,   -71.061667,         "Fields Corner",     "place-fldcr");
+var centralSquare     = makeStation(42.365486,   -71.103802,         "CentralSquare",     "place-cntsq");
+var braintree         = makeStation(42.2078543,  -71.0011385,        "Braintree",         "place-brntn");
 
 // Orange line stations
 var oakGrove         = makeStation(42.4353430165, -71.071189642,  "Oak Grove");
