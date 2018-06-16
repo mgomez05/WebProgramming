@@ -163,8 +163,27 @@ function displayTrainInfo(stopID, lat, lng)
     {
         if (this.readyState == 4 && this.status == 200) 
         {
+            jsonData = JSON.parse(xhttp.responseText);
+            jsonData2 = jsonData["data"];
+
+            contentString = "";
+
+            for (i = 0; i < jsonData2.length; i++)
+            {
+                var arrayElement  = jsonData2[i]["attributes"];
+
+                // Get attributes
+                var arrivalTime   = arrayElement["arrival_time"];
+                var departureTime = arrayElement["departure_time"]; 
+                var direction     = arrayElement["direction_id"]; 
+
+                contentString +=  "arrival:"   + arrivalTime   + "," + 
+                                  "departure:" + departureTime + "," +
+                                  "direction:" + direction + '\n';
+            }
+
             infoWindow.setPosition(makePosition(lat, lng));
-            infoWindow.setContent("url: " + url + ", " + xhttp.responseText);
+            infoWindow.setContent(contentString);
             infoWindow.open(map);
         }
     }
