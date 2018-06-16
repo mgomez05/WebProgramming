@@ -2,11 +2,18 @@
 // Custom Marker icon for MBTA map (a picture of a train) 
 var trainIcon = {url: "train-small.png"};
 
+
+
 // Takes a latitude and a longitude and returns a position object
 function makePosition(latitude, longitude) {
     return {lat: latitude, lng: longitude};
 }
 
+// Makes a station object with a latitude, longitude, and name
+function makeStation(lat, lng, name)
+{
+    return {lat: lat, lng: lng, name: name};
+}
 
 // Makes a marker for the coordinate passed as an argument
 // If an icon is specified, use it as the image for the marker
@@ -31,6 +38,7 @@ function makeStationMarkers(stations)
     }
 }
 
+// Makes a marker for the user's current location
 function makeCurrentLocationMarker(position)
 {
     marker = makeMarker(position, null);
@@ -53,12 +61,11 @@ function onCurrentLocationMarkerClick(position)
     // the index of the closest station in the stations array and
     // distance to the closest station in miles
     currentLocationInfoWindow.setPosition(position);
-    currentLocationInfoWindow.setContent("Closest to station " + closestStation.name + " with distance of " + closestStation.distance + " miles");
-    currentLocationInfoWindow.open(map);
-                                     
+    currentLocationInfoWindow.setContent("Closest to station " + closestStation.station.name + " with distance of " + closestStation.distance + " miles");
+    currentLocationInfoWindow.open(map);                                    
 }
 
-// Find the station in the array of stations that is closest to the current position
+// Finds the station in an array of stations that is closest to currentPosition
 function findClosestStation(currentPosition, stations)
 {
     var minHavResult = 1000000000000000;
@@ -81,7 +88,7 @@ function findClosestStation(currentPosition, stations)
         } 
     }
 
-    var closestPosition = {index: minIndex, distance: minHavResult, name: minStation.name};
+    var closestPosition = {index: minIndex, distance: minHavResult, station: minStation};
 
     return closestPosition;
 }
@@ -137,10 +144,6 @@ function createPath(coordinateList, color)
     return path;
 }
 
-function makeStation(lat, lng, name)
-{
-    return {lat: lat, lng: lng, name: name};
-}
 
 var map;
 
@@ -235,7 +238,8 @@ var fairmountStations =  [southStation, newmarket, uphamsCorner, fourCornersGene
 
 
 // Callback function that gets called when the google API scrip is loaded
-function initMap() {
+function initMap() 
+{
     
     // Create a new google map centered on south station and with zoom of 11
     // (higher zoom means more zoomed in)
@@ -251,6 +255,7 @@ function initMap() {
     makeStationMarkers(fairmountStations);
     makeStationMarkers(stations);
 
+    var infoWindow = new google.maps.InfoWindow;
 
     /******************/
     /* Red Line Paths */
@@ -284,18 +289,14 @@ function initMap() {
     // Fairmount line path
     var fairmountLinePath = createPath(fairmountStations, 'SlateBlue');
 
-
-    // Create geolocation marker
-    // Try HTML5 geolocation.
-
-    infoWindow = new google.maps.InfoWindow;
-
-    // If browser allows geolocation, do geolocation things
+    // Create geolocation marker at current position
+    // -If browser allows geolocation and location can be retrieved, call "locationcallback"
+    // -Otherwise, show an error message
     if (navigator.geolocation) 
     {
         navigator.geolocation.getCurrentPosition(locationCallback, locationErrorCallBack);
     } 
-    else // If Browser doesn't support Geolocation, show error message
+    else
     {
         handleLocationError(false, infoWindow, map.getCenter());
     }
@@ -316,14 +317,6 @@ function locationCallback(position)
       // Define a position variable
       var pos = {lat: position.coords.latitude,
                  lng: position.coords.longitude};
-
-      /*// Set position and message of infoWindow
-      infoWindow.setPosition(pos);
-      infoWindow.setContent('Location found.');
-
-      // Open the infowindow, and center the map at the user's geolocation
-      infoWindow.open(map);*/
-
 
       // Make a marker for current location with default icon
       makeCurrentLocationMarker(pos);
