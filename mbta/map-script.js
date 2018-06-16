@@ -1,12 +1,12 @@
 
+// Custom Marker icon for MBTA map (a picture of a train) 
+var trainIcon = {url: "train-small.png"};
 
 // Takes a latitude and a longitude and returns a position object
 function makePosition(latitude, longitude) {
     return {lat: latitude, lng: longitude};
 }
 
-// Custom Marker icon for MBTA map (a picture of a train) 
-var trainIcon = {url: "train-small.png"};
 
 // Makes a marker for the coordinate passed as an argument
 function makeMarker(position) 
@@ -15,6 +15,15 @@ function makeMarker(position)
     var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
                                          icon: trainIcon,
                                          map: map});
+}
+
+// Makes a marker for each station in an array of stations
+function makeStationMarkers(stations)
+{
+    for (i = 0; i < stations.length; i++) 
+    {
+        makeMarker(stations[i]);
+    }
 }
 
 function makeCurrentLocationMarker(position)
@@ -231,17 +240,12 @@ function initMap() {
 	    zoom: 11
         });
 
-    // Create marker for each red line station
-    for (i = 0; i < stations.length; i++) makeMarker(stations[i]);
-
-    // Create marker for each orange line station
-    for (i = 0; i < orangeStations.length; i++) makeMarker(orangeStations[i]);
-
-    // Create marker for each blue line station
-    for (i = 0; i < blueStations.length; i++) makeMarker(blueStations[i]);
-
-    // Create marker for each fairmount line station
-    for (i = 0; i < fairmountStations.length; i++) makeMarker(fairmountStations[i]);
+    // Create station marker for each type of station
+    makeStationMarkers(stations);
+    makeStationMarkers(orangeStations);
+    makeStationMarkers(blueStations);
+    makeStationMarkers(fairmountStations);
+    makeStationMarkers(stations);
 
 
     /******************/
