@@ -181,8 +181,17 @@ function displayTrainInfo(station)
                 else                 direction = "Southbound to Ashmont/Braintree";
                 
                 if (arrivalTime == null)   arrivalTime = "N/A";
+                else
+                {
+                    date = new Date(arrivalTime);
+                    arrivalTime = date.toLocaleTimeString();                    
+                }
                 if (departureTime == null) departureTime = "N/A"
-
+                else                       
+                {
+                    date = new Date(departureTime);
+                    departureTime = date.toLocaleTimeString();
+                }
                 contentString +=  "<p>" +
                                   "arrival: "   + arrivalTime   + ", " + 
                                   "departure: " + departureTime + ", " +
