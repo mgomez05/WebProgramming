@@ -191,18 +191,18 @@ var greenStreet      = makeStation(42.3105691548, -71.107313633,  "Green Street"
 var forestHills      = makeStation(42.300362,     -71.113411,     "Forest Hills");
 
 // Blue Line Stations
-var wonderland     = makeStation(42.414246,     -70.992144);
-var revereBeach    = makeStation(42.4071633648, -70.992193222);
-var beachmont      = makeStation(42.3974187182, -70.992193222);
-var suffolkDowns   = makeStation(42.3884015915, -71.0003578663);
-var orientHeights  = makeStation(42.386676,     -71.006628);
-var woodIsland     = makeStation(42.380797,     -71.023394);
-var airport        = makeStation(42.3727334327, -71.035194397);
-var maverick       = makeStation(42.36886,      -71.039926);
-var aquarium       = makeStation(42.359456,     -71.05357);
+var wonderland     = makeStation(42.414246,     -70.992144,     "Wonderland");
+var revereBeach    = makeStation(42.4071633648, -70.992193222,  "Revere Beach");
+var beachmont      = makeStation(42.3974187182, -70.992193222,  "Beachmont");
+var suffolkDowns   = makeStation(42.3884015915, -71.0003578663, "Suffolk Downs");
+var orientHeights  = makeStation(42.386676,     -71.006628,     "Orient Heights");
+var woodIsland     = makeStation(42.380797,     -71.023394,     "Wood Island");
+var airport        = makeStation(42.3727334327, -71.035194397,  "Airpot");
+var maverick       = makeStation(42.36886,      -71.039926,     "Maverick");
+var aquarium       = makeStation(42.359456,     -71.05357,      "Aquarium");
 //var stateStreet      = makeStation(42.300362,     -71.113411);
-var govCenter      = makeStation(42.359297,     -71.059895);
-var bowdoin        = makeStation(42.361457,     -71.062129);
+var govCenter      = makeStation(42.359297,     -71.059895,     "Government Center");
+var bowdoin        = makeStation(42.361457,     -71.062129,     "Bowdoin");
 
 
 // Commuter Rail Line: Fairmount
