@@ -50,9 +50,28 @@ function makeCurrentLocationMarker(position)
                                           });
 }
 
-function doHaversine()
+function doHaversine(position1, position2)
 {
+    // Radius of earth in meters
+    var R = 6371e3; 
 
+    // Convert latitudes to radians
+    var lat1 = position1.lat.toRadians();
+    var lat2 = position2.lat.toRadians();
+
+    // Get deltas for latitude and longitudes
+    var dLat = lat1 - lat2;
+    var dLng = (position1.lng - position2.lng).toRadians();
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(lat1)   * Math.cos(lat2)   *
+            Math.sin(dLng/2) * Math.sin(dLng/2);
+
+    var c =  2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    
+    var d = R * 2;
+
+    return d;
 }
 
 // Creates a google maps polyline using the coordinateList argument
