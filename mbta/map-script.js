@@ -28,27 +28,11 @@ function makeCurrentLocationMarker(position)
         currentLocationInfoWindow.setPosition(position);
         //currentLocationInfoWindow.setContent('This is your current location');
 
-        var minHavResult = 1000000000000000;
-        var minIndex = -1;
+        closestStation = findClosestStation(position, stations);
 
-        var havResults = [];
-
-        // Loop through red line stations and see which one is the closest
-        for (var i = 0; i < stations.length; i++)
-        {
-            var havResult = doHaversine(position, stations[i]);
-            havResults.push(havResult);
-
-            if (havResult < minHavResult) 
-            {
-                minHavResult = havResult;
-                minIndex = i;
-            }
-            
-        }
         //currentLocationInfoWindow.setContent("lat: " + position.lat + ", lng: " + position.lng);
 
-        currentLocationInfoWindow.setContent("Closest to index " + minIndex + " with distance of " + minHavResult + " miles");
+        currentLocationInfoWindow.setContent("Closest to index " + closestStation.index + " with distance of " + closestStation.distance + " miles");
 
         currentLocationInfoWindow.open(map);
         
@@ -56,6 +40,33 @@ function makeCurrentLocationMarker(position)
 
                                           });
 }
+
+// Find the station in the array of stations that is closest to the current position
+function findClosestStation(currentPosition, stations)
+{
+    var minHavResult = 1000000000000000;
+    var minIndex = -1;
+
+    var havResults = [];
+
+    // Loop through different locations and see which one is the closest
+    for (var i = 0; i < stations.length; i++)
+    {
+        var havResult = doHaversine(currentPosition, stations[i]);
+        havResults.push(havResult);
+
+        if (havResult < minHavResult) 
+        {
+            minHavResult = havResult;
+            minIndex = i;
+        } 
+    }
+
+    var closestPosition = {index: minIndex, distance: minHavResult};
+
+    return closestPosition;
+}
+
 function toRadians(degrees)
 {
     return degrees * Math.PI / 180;
