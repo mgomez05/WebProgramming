@@ -39,7 +39,29 @@ function makeStationMarkers(stations)
     {
         var currentStation = stations[i];
         var marker = makeMarker(currentStation, trainIcon);
-        marker.addListener('click', function() { onStationMarkerClick(currentStation) });
+
+        marker.addListener('click', function() 
+        { 
+            markerPosition = this.getPosition();
+            markerLat = markerPosition.lat();
+            markerLng = markerPosition.lng();
+
+            //console.log(position);
+            //console.log(position.lat() + "," + position.lng());
+            for (i = 0; i < allStations.length; i++)
+            {
+                station = allStations[i];
+                console.log(station.lat + ", " + station.lng);
+                console.log(markerLat,  + ", " + markerLng);
+                if (station.lat == markerLat && 
+                    station.lng == markerLng)
+                {
+                    onStationMarkerClick(station);
+                    break;
+                }
+            }
+            
+        });
     }
 }
 
