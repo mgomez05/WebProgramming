@@ -9,12 +9,17 @@ function makePosition(latitude, longitude) {
 
 
 // Makes a marker for the coordinate passed as an argument
-function makeMarker(position) 
+// If an icon is specified, use it as the image for the marker
+// Otherwise, use the default google icon
+function makeMarker(position, icon) 
 {
-    var iconBase     = 'https://maps.google.com/mapfiles/kml/shapes/';
+ 
     var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
-                                         icon: trainIcon,
                                          map: map});
+
+    if (icon != null) marker.setIcon(icon);
+    
+    return marker;
 }
 
 // Makes a marker for each station in an array of stations
@@ -22,14 +27,15 @@ function makeStationMarkers(stations)
 {
     for (i = 0; i < stations.length; i++) 
     {
-        makeMarker(stations[i]);
+        makeMarker(stations[i], trainIcon);
     }
 }
 
 function makeCurrentLocationMarker(position)
 {
-    var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
-                                         map: map});
+    marker = makeMarker(position, null);
+    //var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
+    //                                     map: map});
 
     // Set up listener that calls onCurrentLocationMarkerClick() when the marker is clicked 
     marker.addListener('click', function() { onCurrentLocationMarkerClick(position) });
