@@ -22,23 +22,26 @@ function makeCurrentLocationMarker(position)
     var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
                                          map: map});
 
-    marker.addListener('click', function() {
-        var currentLocationInfoWindow = new google.maps.InfoWindow;
+    // Set up listener that calls onCurrentLocationMarkerClick() when the marker is clicked 
+    marker.addListener('click', function() { onCurrentLocationMarkerClick(position) });
+}
 
-        currentLocationInfoWindow.setPosition(position);
-        //currentLocationInfoWindow.setContent('This is your current location');
+// Called when the marker at the user's current location is clicked
+function onCurrentLocationMarkerClick(position)
+{
+    var currentLocationInfoWindow = new google.maps.InfoWindow;
+      
+    // Finds index of closest station in the stations array
+    // and the distance to it in miles
+    closestStation = findClosestStation(position, stations);
 
-        closestStation = findClosestStation(position, stations);
-
-        //currentLocationInfoWindow.setContent("lat: " + position.lat + ", lng: " + position.lng);
-
-        currentLocationInfoWindow.setContent("Closest to index " + closestStation.index + " with distance of " + closestStation.distance + " miles");
-
-        currentLocationInfoWindow.open(map);
-        
-
-
-                                          });
+    // Set up infowindow at current position with 
+    // the index of the closest station in the stations array and
+    // distance to the closest station in miles
+    currentLocationInfoWindow.setPosition(position);
+    currentLocationInfoWindow.setContent("Closest to index " + closestStation.index + " with distance of " + closestStation.distance + " miles");
+    currentLocationInfoWindow.open(map);
+                                     
 }
 
 // Find the station in the array of stations that is closest to the current position
