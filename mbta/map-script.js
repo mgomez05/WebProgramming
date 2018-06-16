@@ -27,15 +27,18 @@ function makeCurrentLocationMarker(position)
 
         currentLocationInfoWindow.setPosition(position);
         currentLocationInfoWindow.setContent('This is your current location');
-        currentLocationInfoWindow.open(map);
+        
 
         var minHavResult = 1000000000000000;
         var minIndex = -1;
 
-        // Loop through red line stations and see which one is the closest
-        /*for (var i = 0; i < stations.length; i++)
+        var havResults = [];
+
+        //Loop through red line stations and see which one is the closest
+        for (var i = 0; i < stations.length; i++)
         {
-            //var havResult = doHaversine(position, stations[i]);
+            var havResult = doHaversine(position, stations[i]);
+            havResults.push(havResult);
 
             if (havResult < minHavResult) 
             {
@@ -43,11 +46,19 @@ function makeCurrentLocationMarker(position)
                 minIndex = i;
             }
             
-        }*/
+        }
+
+        currentLocationInfoWindow.setContent("You are closest to index " + minIndex);
+
+        currentLocationInfoWindow.open(map);
         
 
 
                                           });
+}
+function toRadians(degrees)
+{
+    return degrees * Math.PI / 180;
 }
 
 function doHaversine(position1, position2)
@@ -56,20 +67,20 @@ function doHaversine(position1, position2)
     var R = 6371e3; 
 
     // Convert latitudes to radians
-    var lat1 = position1.lat.toRadians();
-    var lat2 = position2.lat.toRadians();
+    var lat1 = toRadians(position1.lat);
+    var lat2 = toRadians(position2.lat);
 
     // Get deltas for latitude and longitudes
-    var dLat = lat1 - lat2;
-    var dLng = (position1.lng - position2.lng).toRadians();
+    var dLat = toRadians(position2.lat - position1.lat);
+    var dLng = toRadians(position2.lng - position1.lng);
 
     var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
             Math.cos(lat1)   * Math.cos(lat2)   *
             Math.sin(dLng/2) * Math.sin(dLng/2);
 
-    var c =  2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var c =  2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     
-    var d = R * 2;
+    var d = R * c;
 
     return d;
 }
