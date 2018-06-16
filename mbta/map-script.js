@@ -2,6 +2,8 @@
 // Custom Marker icon for MBTA map (a picture of a train) 
 var trainIcon = {url: "train-small.png"};
 
+// Info window for different stations
+var infoWindow;
 
 
 // Takes a latitude and a longitude and returns a position object
@@ -10,9 +12,9 @@ function makePosition(latitude, longitude) {
 }
 
 // Makes a station object with a latitude, longitude, and name
-function makeStation(lat, lng, name)
+function makeStation(lat, lng, name, stopID)
 {
-    return {lat: lat, lng: lng, name: name};
+    return {lat: lat, lng: lng, name: name, stopID: stopID};
 }
 
 // Makes a marker for the coordinate passed as an argument
@@ -34,8 +36,9 @@ function makeStationMarkers(stations)
 {
     for (i = 0; i < stations.length; i++) 
     {
-        var marker = makeMarker(stations[i], trainIcon);
-        marker.addListener('click', function() { onStationMarkerClick(stations[i]) });
+        var currentStation = stations[i];
+        var marker = makeMarker(currentStation, trainIcon);
+        marker.addListener('click', function() { onStationMarkerClick(currentStation) });
     }
 }
 
@@ -152,7 +155,7 @@ function createPath(coordinateList, color)
 // Send a subway trains request
 function displayTrainInfo(stopID, lat, lng) 
 {
-    var url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=["+ stopID + "]";
+    var url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id="+ stopID;
 
     var xhttp = new XMLHttpRequest();
 
@@ -161,8 +164,8 @@ function displayTrainInfo(stopID, lat, lng)
         if (this.readyState == 4 && this.status == 200) 
         {
             infoWindow.setPosition(makePosition(lat, lng));
-            infoWindow.setContent(xhttp.responseText);
-            infoWindow.open();
+            infoWindow.setContent("url: " + url + ", " + xhttp.responseText);
+            infoWindow.open(map);
         }
     }
 
@@ -179,7 +182,7 @@ var southStation      = makeStation(42.352271,   -71.05524200000001, "South Stat
 var andrew            = makeStation(42.330154,   -71.05765,          "Andrew",            "place-andrw");
 var porter            = makeStation(42.3884,     -71.11914899999999, "Porter",            "place-portr");
 var harvard           = makeStation(42.373362,   -71.118956,         "Harvard",           "place-harsq");
-var JFKUMass          = makeStation(42.320685,   -71.052391,         "JFK/UMass",         "place-jfk");
+var JFKUMass          = makeStation(42.320685,   -71.052391,         "JFK/UMass",         "place-jfk"  );
 var savin             = makeStation(42.31129,    -71.053331,         "Savin Hill",        "place-shmnl");
 var park              = makeStation(42.35639457, -71.0624242,        "Park Street",       "place-pktrm");
 var broadway          = makeStation(42.342622,   -71.056967,         "Broadway",          "place-brdwy");
@@ -282,8 +285,7 @@ function initMap()
     makeStationMarkers(fairmountStations);
     makeStationMarkers(stations);
 
-    var infoWindow = new google.maps.InfoWindow;
-
+    infoWindow = new google.maps.InfoWindow;
     /******************/
     /* Red Line Paths */
     /******************/
