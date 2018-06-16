@@ -34,7 +34,8 @@ function makeStationMarkers(stations)
 {
     for (i = 0; i < stations.length; i++) 
     {
-        makeMarker(stations[i], trainIcon);
+        var marker = makeMarker(stations[i], trainIcon);
+        marker.addListener('click', function() { onStationMarkerClick(stations[i]) });
     }
 }
 
@@ -47,6 +48,10 @@ function makeCurrentLocationMarker(position)
     marker.addListener('click', function() { onCurrentLocationMarkerClick(position) });
 }
 
+function onStationMarkerClick(station)
+{
+    displayTrainInfo(station.stopID, station.lat, station.lng);
+}
 
 // Called when the marker at the user's current location is clicked
 function onCurrentLocationMarkerClick(position)
@@ -145,20 +150,23 @@ function createPath(coordinateList, color)
 }
 
 // Send a subway trains request
-function getTrainInfo(stopID) 
+function displayTrainInfo(stopID, lat, lng) 
 {
     var url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=["+ stopID + "]";
 
-    
     var xhttp = new XMLHttpRequest();
 
-    var messages = document.getElementById("messages");
-
-    xhttp.onreadystatechange = function() {
-
+    xhttp.onreadystatechange = function() 
+    {
+        if (this.readyState == 4 && this.status == 200) 
+        {
+            infoWindow.setPosition(makePosition(lat, lng));
+            infoWindow.setContent(xhttp.responseText);
+            infoWindow.open();
+        }
     }
 
-    xhttp.open("GET", "data.json", true);
+    xhttp.open("GET", url, true);
 
     xhttp.send();
 }
