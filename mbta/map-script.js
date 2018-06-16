@@ -21,6 +21,16 @@ function makeCurrentLocationMarker(position)
 {
     var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
                                          map: map});
+
+    marker.addListener('click', function() {
+        var currentLocationInfoWindow = new google.maps.InfoWindow;
+
+        currentLocationInfoWindow.setPosition(position);
+        currentLocationInfoWindow.setContent('This is your current location');
+        currentLocationInfoWindow.open(map);
+
+
+                                          });
 }
 // Creates a google maps polyline using the coordinateList argument
 function createPath(coordinateList, color)
