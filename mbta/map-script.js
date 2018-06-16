@@ -26,15 +26,14 @@ function makeCurrentLocationMarker(position)
         var currentLocationInfoWindow = new google.maps.InfoWindow;
 
         currentLocationInfoWindow.setPosition(position);
-        currentLocationInfoWindow.setContent('This is your current location');
-        
+        //currentLocationInfoWindow.setContent('This is your current location');
 
         var minHavResult = 1000000000000000;
         var minIndex = -1;
 
         var havResults = [];
 
-        //Loop through red line stations and see which one is the closest
+        // Loop through red line stations and see which one is the closest
         for (var i = 0; i < stations.length; i++)
         {
             var havResult = doHaversine(position, stations[i]);
@@ -47,8 +46,9 @@ function makeCurrentLocationMarker(position)
             }
             
         }
+        //currentLocationInfoWindow.setContent("lat: " + position.lat + ", lng: " + position.lng);
 
-        currentLocationInfoWindow.setContent("You are closest to index " + minIndex);
+        currentLocationInfoWindow.setContent("Closest to index " + minIndex + " with distance of " + minHavResult + " miles");
 
         currentLocationInfoWindow.open(map);
         
@@ -81,6 +81,9 @@ function doHaversine(position1, position2)
     var c =  2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     
     var d = R * c;
+
+    // Convert to miles
+    var d = d * 0.000621371;
 
     return d;
 }
