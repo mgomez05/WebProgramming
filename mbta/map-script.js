@@ -18,7 +18,7 @@ function makeMarker(position, icon)
                                          map: map});
 
     if (icon != null) marker.setIcon(icon);
-    
+
     return marker;
 }
 
@@ -34,8 +34,6 @@ function makeStationMarkers(stations)
 function makeCurrentLocationMarker(position)
 {
     marker = makeMarker(position, null);
-    //var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
-    //                                     map: map});
 
     // Set up listener that calls onCurrentLocationMarkerClick() when the marker is clicked 
     marker.addListener('click', function() { onCurrentLocationMarkerClick(position) });
@@ -171,26 +169,26 @@ var centralSquare     = makeStation(42.365486,   -71.103802,         "CentralSqu
 var braintree         = makeStation(42.2078543,  -71.0011385,        "Braintree");
 
 // Orange line stations
-var oakGrove         = makeStation(42.4353430165, -71.071189642);
-var malden           = makeStation(42.4273133438, -71.073871851);
-var wellington       = makeStation(42.4042955853, -71.0770046711);
-var assembly         = makeStation(42.392811,     -71.077257);
-var sullivan         = makeStation(42.3857548427, -71.0770797729);
-var communityCollege = makeStation(42.3726383181, -71.0702776909);
-var northStation     = makeStation(42.365512,     -71.061423);
-var haymarket        = makeStation(42.362498,     -71.058996);
-var stateStreet      = makeStation(42.358897,     -71.057795);
+var oakGrove         = makeStation(42.4353430165, -71.071189642,  "Oak Grove");
+var malden           = makeStation(42.4273133438, -71.073871851,  "Malen");
+var wellington       = makeStation(42.4042955853, -71.0770046711, "Wellington");
+var assembly         = makeStation(42.392811,     -71.077257,     "Assembly");
+var sullivan         = makeStation(42.3857548427, -71.0770797729, "Sullivan");
+var communityCollege = makeStation(42.3726383181, -71.0702776909, "Community College");
+var northStation     = makeStation(42.365512,     -71.061423,     "North Station");
+var haymarket        = makeStation(42.362498,     -71.058996,     "Haymarket");
+var stateStreet      = makeStation(42.358897,     -71.057795,     "State Street");
 // downtown crossing         = makeStation(,);
-var chinatown        = makeStation(42.352228,     -71.062892);
-var tuftsMedical     = makeStation(42.349873,     -71.063795);
-var backBay          = makeStation(42.3472772215, -71.0760390759);
-var massAve          = makeStation(42.3415519196, -71.0832166672);
-var ruggles          = makeStation(42.3356674788, -71.0905230045);
-var roxbury          = makeStation(42.3315274209, -71.0954046249);
-var jacksonSquare    = makeStation(42.3227388088, -71.1000823975);
-var stonyBrook       = makeStation(42.3192008078, -71.1028289795);
-var greenStreet      = makeStation(42.3105691548, -71.107313633);
-var forestHills      = makeStation(42.300362,     -71.113411);
+var chinatown        = makeStation(42.352228,     -71.062892,     "Chinatown");
+var tuftsMedical     = makeStation(42.349873,     -71.063795,     "Tufts Medical");
+var backBay          = makeStation(42.3472772215, -71.0760390759, "Back Bay");
+var massAve          = makeStation(42.3415519196, -71.0832166672, "Mass Ave");
+var ruggles          = makeStation(42.3356674788, -71.0905230045, "Ruggles");
+var roxbury          = makeStation(42.3315274209, -71.0954046249, "Roxbury");
+var jacksonSquare    = makeStation(42.3227388088, -71.1000823975, "Jackson Sqaure");
+var stonyBrook       = makeStation(42.3192008078, -71.1028289795, "Stony Brook");
+var greenStreet      = makeStation(42.3105691548, -71.107313633,  "Green Street");
+var forestHills      = makeStation(42.300362,     -71.113411,     "Forest Hills");
 
 // Blue Line Stations
 var wonderland     = makeStation(42.414246,     -70.992144);
