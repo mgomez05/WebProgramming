@@ -180,22 +180,16 @@ function displayTrainInfo(station)
                 if (direction = "1") direction = "Northbound to Alewife"
                 else                 direction = "Southbound to Ashmont/Braintree";
                 
-                if (arrivalTime == null)   arrivalTime = "N/A";
-                else
-                {
-                    date = new Date(arrivalTime);
-                    arrivalTime = date.toLocaleTimeString();                    
-                }
+                if (arrivalTime == null) arrivalTime = "N/A";
+                else                     arrivalTime = cleanUpDateString(arrivalTime);                 
+                
                 if (departureTime == null) departureTime = "N/A"
-                else                       
-                {
-                    date = new Date(departureTime);
-                    departureTime = date.toLocaleTimeString();
-                }
-                contentString +=  "<p>" +
-                                  "arrival: "   + arrivalTime   + ", " + 
-                                  "departure: " + departureTime + ", " +
-                                  "direction: " + direction + 
+                else                       departureTime = cleanUpDateString(departureTime);               
+            
+                contentString +=  "<p>" + (i + 1) + ". " +
+                                  "Arrival: "   + arrivalTime   + ", " + 
+                                  "Departure: " + departureTime + ", " +
+                                  "Direction: " + direction + 
                                   '</p>';
             }
 
@@ -208,6 +202,14 @@ function displayTrainInfo(station)
     xhttp.open("GET", url, true);
 
     xhttp.send();
+}
+
+function cleanUpDateString(dateString)
+{
+    date = new Date(dateString);
+    dateString = date.toLocaleTimeString();  
+
+    return dateString;
 }
 
 
