@@ -172,10 +172,14 @@ function displayTrainInfo(station)
             {
                 var arrayElement  = jsonData2[i]["attributes"];
 
-                // Get attributes
+                // Get attributes from JSON
                 var arrivalTime   = arrayElement["arrival_time"];
-                var departureTime = arrayElement["departure_time"]; 
+                var departureTime = arrayElement["departure_time"];
                 var direction     = arrayElement["direction_id"]; 
+
+                if (direction = "1") direction = "Northbound to Alewife"
+                else                 direction = "Southbound to Ashmont/Braintree";
+                
 
                 contentString +=  "<p>" +
                                   "arrival: "   + arrivalTime   + ", " + 
