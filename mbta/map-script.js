@@ -17,6 +17,11 @@ function makeMarker(position)
                                          map: map});
 }
 
+function makeCurrentLocationMarker(position)
+{
+    var marker = new google.maps.Marker({position: makePosition(position.lat, position.lng), 
+                                         map: map});
+}
 // Creates a google maps polyline using the coordinateList argument
 function createPath(coordinateList, color)
 {
@@ -201,6 +206,8 @@ function initMap() {
 
 }
 
+// Called when there's an error getting the user's current location
+// Displays an infowindow at the center of the map with an error message
 function locationErrorCallBack() 
 {
     handleLocationError(true, infoWindow, map.getCenter());
@@ -214,12 +221,17 @@ function locationCallback(position)
       var pos = {lat: position.coords.latitude,
                  lng: position.coords.longitude};
 
-      // Set position and message of infoWindow
+      /*// Set position and message of infoWindow
       infoWindow.setPosition(pos);
       infoWindow.setContent('Location found.');
 
       // Open the infowindow, and center the map at the user's geolocation
-      infoWindow.open(map);
+      infoWindow.open(map);*/
+
+
+      // Make a marker for current location with default icon
+      makeCurrentLocationMarker(pos);
+
       map.setCenter(pos);
 
 }
