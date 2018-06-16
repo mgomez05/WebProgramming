@@ -183,6 +183,49 @@ function initMap() {
     // Fairmount line path
     var fairmountLinePath = createPath(fairmountStations, 'SlateBlue');
 
+
+    // Create geolocation marker
+    // Try HTML5 geolocation.
+
+    infoWindow = new google.maps.InfoWindow;
+
+    // If browser allows geolocation, do geolocation things
+    if (navigator.geolocation) 
+    {
+        navigator.geolocation.getCurrentPosition(function(position) 
+        {
+         
+          // Define a position variable
+          var pos = {lat: position.coords.latitude,
+                     lng: position.coords.longitude};
+
+          // Set position and message of infoWindow
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('Location found.');
+
+          // Open the infowindow, and center the map at the user's geolocation
+          infoWindow.open(map);
+          map.setCenter(pos);
+        }, function() 
+        {
+          handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } 
+    else // Browser doesn't support Geolocation
+    {
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+    // Handles the case when there's an error displaying user's location
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) 
+    {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+                            'Error: The Geolocation service failed.' :
+                            'Error: Your browser doesn\'t support geolocation.');
+      infoWindow.open(map);
+    }
+
 }
 
 // Commuter Rail Line: Fitchburg
