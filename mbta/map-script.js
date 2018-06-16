@@ -53,7 +53,7 @@ function makeCurrentLocationMarker(position)
 
 function onStationMarkerClick(station)
 {
-    displayTrainInfo(station.stopID, station.lat, station.lng);
+    displayTrainInfo(station);
 }
 
 // Called when the marker at the user's current location is clicked
@@ -153,9 +153,9 @@ function createPath(coordinateList, color)
 }
 
 // Send a subway trains request
-function displayTrainInfo(stopID, lat, lng) 
-{
-    var url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id="+ stopID;
+function displayTrainInfo(station) 
+{   
+    var url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id="+ station.stopID;
 
     var xhttp = new XMLHttpRequest();
 
@@ -166,7 +166,7 @@ function displayTrainInfo(stopID, lat, lng)
             jsonData = JSON.parse(xhttp.responseText);
             jsonData2 = jsonData["data"];
 
-            contentString = "";
+            contentString = "<h3>" + station.name + " Schedule:" + "</h3>";
 
             for (i = 0; i < jsonData2.length; i++)
             {
@@ -184,7 +184,7 @@ function displayTrainInfo(stopID, lat, lng)
                                   '</p>';
             }
 
-            infoWindow.setPosition(makePosition(lat, lng));
+            infoWindow.setPosition(makePosition(station.lat, station.lng));
             infoWindow.setContent(contentString);
             infoWindow.open(map);
         }
