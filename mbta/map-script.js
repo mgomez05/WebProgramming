@@ -144,6 +144,25 @@ function createPath(coordinateList, color)
     return path;
 }
 
+// Send a subway trains request
+function getTrainInfo(stopID) 
+{
+    var url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id=["+ stopID + "]";
+
+    
+    var xhttp = new XMLHttpRequest();
+
+    var messages = document.getElementById("messages");
+
+    xhttp.onreadystatechange = function() {
+
+    }
+
+    xhttp.open("GET", "data.json", true);
+
+    xhttp.send();
+}
+
 
 var map;
 
