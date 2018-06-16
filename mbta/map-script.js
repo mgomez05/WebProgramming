@@ -180,6 +180,8 @@ function displayTrainInfo(station)
                 if (direction = "1") direction = "Northbound to Alewife"
                 else                 direction = "Southbound to Ashmont/Braintree";
                 
+                if (arrivalTime == null)   arrivalTime = "N/A";
+                if (departureTime == null) departureTime = "N/A"
 
                 contentString +=  "<p>" +
                                   "arrival: "   + arrivalTime   + ", " + 
