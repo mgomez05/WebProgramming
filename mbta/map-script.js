@@ -177,9 +177,11 @@ function displayTrainInfo(stopID, lat, lng)
                 var departureTime = arrayElement["departure_time"]; 
                 var direction     = arrayElement["direction_id"]; 
 
-                contentString +=  "arrival:"   + arrivalTime   + "," + 
-                                  "departure:" + departureTime + "," +
-                                  "direction:" + direction + '\n';
+                contentString +=  "<p>" +
+                                  "arrival: "   + arrivalTime   + ", " + 
+                                  "departure: " + departureTime + ", " +
+                                  "direction: " + direction + 
+                                  '</p>';
             }
 
             infoWindow.setPosition(makePosition(lat, lng));
