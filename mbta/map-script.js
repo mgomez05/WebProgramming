@@ -26,6 +26,7 @@ function makeCurrentLocationMarker(position)
     marker.addListener('click', function() { onCurrentLocationMarkerClick(position) });
 }
 
+
 // Called when the marker at the user's current location is clicked
 function onCurrentLocationMarkerClick(position)
 {
@@ -39,7 +40,7 @@ function onCurrentLocationMarkerClick(position)
     // the index of the closest station in the stations array and
     // distance to the closest station in miles
     currentLocationInfoWindow.setPosition(position);
-    currentLocationInfoWindow.setContent("Closest to index " + closestStation.index + " with distance of " + closestStation.distance + " miles");
+    currentLocationInfoWindow.setContent("Closest to station " + closestStation.name + " with distance of " + closestStation.distance + " miles");
     currentLocationInfoWindow.open(map);
                                      
 }
@@ -49,6 +50,7 @@ function findClosestStation(currentPosition, stations)
 {
     var minHavResult = 1000000000000000;
     var minIndex = -1;
+    var minStation = null;
 
     var havResults = [];
 
@@ -62,10 +64,11 @@ function findClosestStation(currentPosition, stations)
         {
             minHavResult = havResult;
             minIndex = i;
+            minStation = stations[i];
         } 
     }
 
-    var closestPosition = {index: minIndex, distance: minHavResult};
+    var closestPosition = {index: minIndex, distance: minHavResult, name: minStation.name};
 
     return closestPosition;
 }
@@ -121,77 +124,82 @@ function createPath(coordinateList, color)
     return path;
 }
 
+function makeStation(lat, lng, name)
+{
+    return {lat: lat, lng: lng, name: name};
+}
+
 var map;
 
 // Red line stations
-var southStation      = makePosition(42.352271,   -71.05524200000001);
-var andrew            = makePosition(42.330154,   -71.05765);
-var porter            = makePosition(42.3884,     -71.11914899999999);
-var harvard           = makePosition(42.373362,   -71.118956);
-var JFKUMass          = makePosition(42.320685,   -71.052391);
-var savin             = makePosition(42.31129,    -71.053331);
-var park              = makePosition(42.35639457, -71.0624242);
-var broadway          = makePosition(42.342622,   -71.056967);
-var northQuincy       = makePosition(42.275275,   -71.029583);
-var shawmut           = makePosition(42.29312583, -71.06573796000001);
-var davis             = makePosition(42.39674,    -71.121815);
-var alewife           = makePosition(42.395428,   -71.142483);
-var kendallMIT        = makePosition(42.36249079, -71.08617653);
-var charlesMGH        = makePosition(42.361166,   -71.070628);
-var downtownCrossing  = makePosition(42.355518,   -71.060225);
-var quincyCenter      = makePosition(42.251809,   -71.005409);
-var quincyAdams       = makePosition(42.233391,   -71.007153);
-var ashmont           = makePosition(42.284652,   -71.06448899999999);
-var wollaston         = makePosition(42.2665139,  -71.0203369);
-var fieldsCorner      = makePosition(42.300093,   -71.061667);
-var centralSquare     = makePosition(42.365486,   -71.103802);
-var braintree         = makePosition(42.2078543,  -71.0011385);
+var southStation      = makeStation(42.352271,   -71.05524200000001, "South Station");
+var andrew            = makeStation(42.330154,   -71.05765,          "Andrew");
+var porter            = makeStation(42.3884,     -71.11914899999999, "Porter");
+var harvard           = makeStation(42.373362,   -71.118956,         "Harvard");
+var JFKUMass          = makeStation(42.320685,   -71.052391,         "JFK/UMass");
+var savin             = makeStation(42.31129,    -71.053331,         "Savin Hill");
+var park              = makeStation(42.35639457, -71.0624242,        "Park Street");
+var broadway          = makeStation(42.342622,   -71.056967,         "Broadway");
+var northQuincy       = makeStation(42.275275,   -71.029583,         "North Quincy");
+var shawmut           = makeStation(42.29312583, -71.06573796000001, "Shawmut");
+var davis             = makeStation(42.39674,    -71.121815,         "Davis Square");
+var alewife           = makeStation(42.395428,   -71.142483,         "Alewife");
+var kendallMIT        = makeStation(42.36249079, -71.08617653,       "Kendall/MIT");
+var charlesMGH        = makeStation(42.361166,   -71.070628,         "Charles/MGH");
+var downtownCrossing  = makeStation(42.355518,   -71.060225,         "Downtown Crossing");
+var quincyCenter      = makeStation(42.251809,   -71.005409,         "Quincy Center");
+var quincyAdams       = makeStation(42.233391,   -71.007153,         "Quincy Adams");
+var ashmont           = makeStation(42.284652,   -71.06448899999999, "Ashmont");
+var wollaston         = makeStation(42.2665139,  -71.0203369,        "Wollaston");
+var fieldsCorner      = makeStation(42.300093,   -71.061667,         "Fields Corner");
+var centralSquare     = makeStation(42.365486,   -71.103802,         "CentralSquare");
+var braintree         = makeStation(42.2078543,  -71.0011385,        "Braintree");
 
 // Orange line stations
-var oakGrove         = makePosition(42.4353430165, -71.071189642);
-var malden           = makePosition(42.4273133438, -71.073871851);
-var wellington       = makePosition(42.4042955853, -71.0770046711);
-var assembly         = makePosition(42.392811,     -71.077257);
-var sullivan         = makePosition(42.3857548427, -71.0770797729);
-var communityCollege = makePosition(42.3726383181, -71.0702776909);
-var northStation     = makePosition(42.365512,     -71.061423);
-var haymarket        = makePosition(42.362498,     -71.058996);
-var stateStreet      = makePosition(42.358897,     -71.057795);
-// downtown crossing         = makePosition(,);
-var chinatown        = makePosition(42.352228,     -71.062892);
-var tuftsMedical     = makePosition(42.349873,     -71.063795);
-var backBay          = makePosition(42.3472772215, -71.0760390759);
-var massAve          = makePosition(42.3415519196, -71.0832166672);
-var ruggles          = makePosition(42.3356674788, -71.0905230045);
-var roxbury          = makePosition(42.3315274209, -71.0954046249);
-var jacksonSquare    = makePosition(42.3227388088, -71.1000823975);
-var stonyBrook       = makePosition(42.3192008078, -71.1028289795);
-var greenStreet      = makePosition(42.3105691548, -71.107313633);
-var forestHills      = makePosition(42.300362,     -71.113411);
+var oakGrove         = makeStation(42.4353430165, -71.071189642);
+var malden           = makeStation(42.4273133438, -71.073871851);
+var wellington       = makeStation(42.4042955853, -71.0770046711);
+var assembly         = makeStation(42.392811,     -71.077257);
+var sullivan         = makeStation(42.3857548427, -71.0770797729);
+var communityCollege = makeStation(42.3726383181, -71.0702776909);
+var northStation     = makeStation(42.365512,     -71.061423);
+var haymarket        = makeStation(42.362498,     -71.058996);
+var stateStreet      = makeStation(42.358897,     -71.057795);
+// downtown crossing         = makeStation(,);
+var chinatown        = makeStation(42.352228,     -71.062892);
+var tuftsMedical     = makeStation(42.349873,     -71.063795);
+var backBay          = makeStation(42.3472772215, -71.0760390759);
+var massAve          = makeStation(42.3415519196, -71.0832166672);
+var ruggles          = makeStation(42.3356674788, -71.0905230045);
+var roxbury          = makeStation(42.3315274209, -71.0954046249);
+var jacksonSquare    = makeStation(42.3227388088, -71.1000823975);
+var stonyBrook       = makeStation(42.3192008078, -71.1028289795);
+var greenStreet      = makeStation(42.3105691548, -71.107313633);
+var forestHills      = makeStation(42.300362,     -71.113411);
 
 // Blue Line Stations
-var wonderland     = makePosition(42.414246,     -70.992144);
-var revereBeach    = makePosition(42.4071633648, -70.992193222);
-var beachmont      = makePosition(42.3974187182, -70.992193222);
-var suffolkDowns   = makePosition(42.3884015915, -71.0003578663);
-var orientHeights  = makePosition(42.386676,     -71.006628);
-var woodIsland     = makePosition(42.380797,     -71.023394);
-var airport        = makePosition(42.3727334327, -71.035194397);
-var maverick       = makePosition(42.36886,      -71.039926);
-var aquarium       = makePosition(42.359456,     -71.05357);
-//var stateStreet      = makePosition(42.300362,     -71.113411);
-var govCenter      = makePosition(42.359297,     -71.059895);
-var bowdoin        = makePosition(42.361457,     -71.062129);
+var wonderland     = makeStation(42.414246,     -70.992144);
+var revereBeach    = makeStation(42.4071633648, -70.992193222);
+var beachmont      = makeStation(42.3974187182, -70.992193222);
+var suffolkDowns   = makeStation(42.3884015915, -71.0003578663);
+var orientHeights  = makeStation(42.386676,     -71.006628);
+var woodIsland     = makeStation(42.380797,     -71.023394);
+var airport        = makeStation(42.3727334327, -71.035194397);
+var maverick       = makeStation(42.36886,      -71.039926);
+var aquarium       = makeStation(42.359456,     -71.05357);
+//var stateStreet      = makeStation(42.300362,     -71.113411);
+var govCenter      = makeStation(42.359297,     -71.059895);
+var bowdoin        = makeStation(42.361457,     -71.062129);
 
 
 // Commuter Rail Line: Fairmount
-var newmarket         = makePosition(42.326701,  -71.066314);
-var uphamsCorner      = makePosition(42.3191176, -71.0687222);
-var fourCornersGeneva = makePosition(42.3050441, -71.0770153);
-var talbotAve         = makePosition(42.2932,    -71.0784);
-var mortonStreet      = makePosition(42.2810,    -71.0855);
-var fairmount         = makePosition(42.2536,    -71.1193);
-var readville         = makePosition(42.2384,    -71.1332);
+var newmarket         = makeStation(42.326701,  -71.066314);
+var uphamsCorner      = makeStation(42.3191176, -71.0687222);
+var fourCornersGeneva = makeStation(42.3050441, -71.0770153);
+var talbotAve         = makeStation(42.2932,    -71.0784);
+var mortonStreet      = makeStation(42.2810,    -71.0855);
+var fairmount         = makeStation(42.2536,    -71.1193);
+var readville         = makeStation(42.2384,    -71.1332);
 
 var stations = [southStation, andrew, porter, harvard, JFKUMass, 
                 savin, park, broadway, northQuincy, shawmut,
