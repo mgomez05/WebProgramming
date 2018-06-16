@@ -206,13 +206,13 @@ var bowdoin        = makeStation(42.361457,     -71.062129,     "Bowdoin");
 
 
 // Commuter Rail Line: Fairmount
-var newmarket         = makeStation(42.326701,  -71.066314);
-var uphamsCorner      = makeStation(42.3191176, -71.0687222);
-var fourCornersGeneva = makeStation(42.3050441, -71.0770153);
-var talbotAve         = makeStation(42.2932,    -71.0784);
-var mortonStreet      = makeStation(42.2810,    -71.0855);
-var fairmount         = makeStation(42.2536,    -71.1193);
-var readville         = makeStation(42.2384,    -71.1332);
+var newmarket         = makeStation(42.326701,  -71.066314,  "Newmarket");
+var uphamsCorner      = makeStation(42.3191176, -71.0687222, "Uphams");
+var fourCornersGeneva = makeStation(42.3050441, -71.0770153, "Four Corners Geneva");
+var talbotAve         = makeStation(42.2932,    -71.0784,    "Talbot Ave");
+var mortonStreet      = makeStation(42.2810,    -71.0855,    "Morton Street");
+var fairmount         = makeStation(42.2536,    -71.1193,    "Fairmount");
+var readville         = makeStation(42.2384,    -71.1332,    "Readville");
 
 var stations = [southStation, andrew, porter, harvard, JFKUMass, 
                 savin, park, broadway, northQuincy, shawmut,
