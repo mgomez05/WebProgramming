@@ -29,9 +29,32 @@ function makeCurrentLocationMarker(position)
         currentLocationInfoWindow.setContent('This is your current location');
         currentLocationInfoWindow.open(map);
 
+        var minHavResult = 1000000000000000;
+        var minIndex = -1;
+
+        // Loop through red line stations and see which one is the closest
+        /*for (var i = 0; i < stations.length; i++)
+        {
+            //var havResult = doHaversine(position, stations[i]);
+
+            if (havResult < minHavResult) 
+            {
+                minHavResult = havResult;
+                minIndex = i;
+            }
+            
+        }*/
+        
+
 
                                           });
 }
+
+function doHaversine()
+{
+
+}
+
 // Creates a google maps polyline using the coordinateList argument
 function createPath(coordinateList, color)
 {
