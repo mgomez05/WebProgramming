@@ -101,7 +101,7 @@ function onCurrentLocationMarkerClick(position)
     // distance to the closest station in miles
     var contentString = "<h3>Your Current Location</h3>";
     contentString += "<p>"  + "Closest Station: "             + closestStation.station.name +            "</p>"; 
-    contentString += "<p> " + "Distance to Closest Station: " + closestStation.distance     + " miles" + "</p>";
+    contentString += "<p> " + "Distance to Closest Station: " + formatDistance(closestStation.distance) + " miles" + "</p>";
 
     contentString += "<h4>Distance To MBTA Stations</h4>" + getDistanceTable(position, allStations);
 
@@ -153,7 +153,7 @@ function getDistanceTable(position, stations)
         tableString += "<tr>";
         tableString += '<td class="rankCell">' + (i + 1)+ "</td>";
         tableString += "<td>" + sortedStations[i].station.name + "</td>";
-        tableString += "<td>" + sortedStations[i].distance + "</td>";
+        tableString += "<td>" + formatDistance(sortedStations[i].distance)  + "</td>";
 
         tableString += "</tr>";
     }
@@ -324,6 +324,11 @@ function cleanUpDateString(dateString)
     dateString = date.toLocaleTimeString();
 
     return dateString;
+}
+
+function formatDistance(distance) 
+{
+    return Number(distance).toFixed(2);
 }
 
 
