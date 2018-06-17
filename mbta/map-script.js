@@ -28,6 +28,7 @@ function makeMarker(position, icon)
                                          map: map});
 
     if (icon != null) marker.setIcon(icon);
+    
 
     return marker;
 }
@@ -40,21 +41,17 @@ function makeStationMarkers(stations)
         var currentStation = stations[i];
         var marker = makeMarker(currentStation, trainIcon);
 
+        // Give the marker a "name" attribute
+        marker.metadata = {name: currentStation.name};
+
         marker.addListener('click', function() 
         { 
-            markerPosition = this.getPosition();
-            markerLat = markerPosition.lat();
-            markerLng = markerPosition.lng();
 
-            //console.log(position);
-            //console.log(position.lat() + "," + position.lng());
             for (i = 0; i < allStations.length; i++)
             {
                 station = allStations[i];
-                console.log(station.lat + ", " + station.lng);
-                console.log(markerLat,  + ", " + markerLng);
-                if (station.lat == markerLat && 
-                    station.lng == markerLng)
+
+                if (this.metadata.name == station.name)
                 {
                     onStationMarkerClick(station);
                     break;
@@ -259,7 +256,7 @@ var quincyAdams       = makeStation(42.233391,   -71.007153,         "Quincy Ada
 var ashmont           = makeStation(42.284652,   -71.06448899999999, "Ashmont",           "place-asmnl");
 var wollaston         = makeStation(42.2665139,  -71.0203369,        "Wollaston",         "place-wlsta");
 var fieldsCorner      = makeStation(42.300093,   -71.061667,         "Fields Corner",     "place-fldcr");
-var centralSquare     = makeStation(42.365486,   -71.103802,         "CentralSquare",     "place-cntsq");
+var centralSquare     = makeStation(42.365486,   -71.103802,         "Central Square",     "place-cntsq");
 var braintree         = makeStation(42.2078543,  -71.0011385,        "Braintree",         "place-brntn");
 
 // Orange line stations
