@@ -103,7 +103,7 @@ function onCurrentLocationMarkerClick(position)
     contentString += "<p>"  + "Closest Station: "             + closestStation.station.name +            "</p>"; 
     contentString += "<p> " + "Distance to Closest Station: " + closestStation.distance     + " miles" + "</p>";
 
-    contentString += getDistanceTable(position, allStations);
+    contentString += "<h4>Distance To MBTA Stations</h4>" + getDistanceTable(position, allStations);
 
     infoWindow.setPosition(position);
     infoWindow.setContent(contentString);
