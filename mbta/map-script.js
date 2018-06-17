@@ -120,7 +120,6 @@ function onCurrentLocationMarkerClick(position)
 // from the current location
 function getDistanceTable(position, stations)
 {
-    //console.log("Get distance");
     var tableString = "<table>";
 
     tableString += "<tr>";
