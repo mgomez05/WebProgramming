@@ -124,10 +124,13 @@ function getDistanceTable(position, stations)
     var tableString = "<table>";
 
     tableString += "<tr>";
+
     tableString += "<th>" + "Station"+ "</th>";
     tableString += "<th>" + "Distance (miles)"+ "</th>";
+
     tableString += "</tr>";
 
+    
     var sortedStations = [];
 
     // Get distance from each station to position
@@ -143,14 +146,14 @@ function getDistanceTable(position, stations)
     sortedStations.sort(function(a,b) {
         return a.distance - b.distance;
     });
-
+    
     for (i = 0; i < sortedStations.length; i++)
     {
         tableString += "<tr>";
         tableString += "<td>" + sortedStations[i].station.name + "</td>";
         tableString += "<td>" + sortedStations[i].distance + "</td>";
 
-        tableString += "/<tr>";
+        tableString += "</tr>";
     }
     
     tableString += "</table>";
