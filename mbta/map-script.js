@@ -124,7 +124,8 @@ function getDistanceTable(position, stations)
     var tableString = "<table>";
 
     tableString += "<tr>";
-
+    
+    tableString += "<th>" + "Rank"+ "</th>";
     tableString += "<th>" + "Station"+ "</th>";
     tableString += "<th>" + "Distance (miles)"+ "</th>";
 
@@ -150,6 +151,7 @@ function getDistanceTable(position, stations)
     for (i = 0; i < sortedStations.length; i++)
     {
         tableString += "<tr>";
+        tableString += '<td class="rankCell">' + (i + 1)+ "</td>";
         tableString += "<td>" + sortedStations[i].station.name + "</td>";
         tableString += "<td>" + sortedStations[i].distance + "</td>";
 
