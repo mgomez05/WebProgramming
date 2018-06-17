@@ -12,7 +12,8 @@ function makePosition(latitude, longitude) {
     return {lat: latitude, lng: longitude};
 }
 
-// Makes a station object with a latitude, longitude, and name
+// Makes a station object with a latitude, longitude, name, and stopID
+// -The stopID is for requesting train information when a marker is clicked
 function makeStation(lat, lng, name, stopID)
 {
     return {lat: lat, lng: lng, name: name, stopID: stopID};
@@ -33,7 +34,7 @@ function makeMarker(position, icon)
     return marker;
 }
 
-// Makes a marker for each station in an array of stations
+// Makes a marker for each station in the array of stations argument
 function makeStationMarkers(stations)
 {
     for (i = 0; i < stations.length; i++) 
@@ -44,9 +45,11 @@ function makeStationMarkers(stations)
         // Give the marker a "name" attribute
         marker.metadata = {name: currentStation.name};
 
+        // Add an on click listener that calls 
+        // onStationMarkerClick() and passes
+        // it the station the marker represents
         marker.addListener('click', function() 
         { 
-
             for (i = 0; i < allStations.length; i++)
             {
                 station = allStations[i];
@@ -57,7 +60,6 @@ function makeStationMarkers(stations)
                     break;
                 }
             }
-            
         });
     }
 }
@@ -71,6 +73,7 @@ function makeCurrentLocationMarker(position)
     marker.addListener('click', function() { onCurrentLocationMarkerClick(position) });
 }
 
+// Called when a station marker is clicked
 function onStationMarkerClick(station)
 {
     displayTrainInfo(station);
@@ -121,11 +124,14 @@ function findClosestStation(currentPosition, stations)
     return closestPosition;
 }
 
+// Converts a value in degrees to a value in radians
 function toRadians(degrees)
 {
     return degrees * Math.PI / 180;
 }
 
+// Performs the haversine formula on two coordinates and 
+// returns the distance between them in miles
 function doHaversine(position1, position2)
 {
     // Radius of earth in meters
@@ -172,7 +178,10 @@ function createPath(coordinateList, color)
     return path;
 }
 
-// Send a subway trains request
+// Requests upcoming train info for a station from a server 
+// and displays it in a user-friendly format in an infowindow
+//
+// The infowindow appears over the station's location on the map
 function displayTrainInfo(station) 
 {   
     var url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id="+ station.stopID;
@@ -183,28 +192,29 @@ function displayTrainInfo(station)
     {
         if (this.readyState == 4 && this.status == 200) 
         {
-
-            jsonData = JSON.parse(xhttp.responseText);
-            jsonData2 = jsonData["data"];
+            json = JSON.parse(xhttp.responseText);
+            jsonData = json["data"];
 
             contentString = "<h3>" + station.name + " Schedule:" + "</h3>";
 
-            if (jsonData2.length == 0)
+            // Check if any trains were returned in the response
+            if (jsonData.length == 0)
             {
                 contentString += "<p>There are no upcoming trains scheduled for today</p>";
             }
-            else 
+            else // Loop through trains and add their schedule to infowindow content
             {
-                for (i = 0; i < jsonData2.length; i++)
+                for (i = 0; i < jsonData.length; i++)
                 {
                 
-                    var arrayElement  = jsonData2[i]["attributes"];
+                    var arrayElement  = jsonData[i]["attributes"];
 
                     // Get attributes from JSON
                     var arrivalTime   = arrayElement["arrival_time"];
                     var departureTime = arrayElement["departure_time"];
                     var direction     = arrayElement["direction_id"]; 
 
+                    // Modify returned JSON data to more readable formats
                     if (direction = "1") direction = "Northbound to Alewife"
                     else                 direction = "Southbound to Ashmont/Braintree";
                 
@@ -214,6 +224,7 @@ function displayTrainInfo(station)
                     if (departureTime == null) departureTime = "N/A"
                     else                       departureTime = cleanUpDateString(departureTime);               
             
+                    // Add the content to the infowindow content
                     contentString +=    "<p>" + (i + 1) + ". " +
                                         "Arrival: "   + arrivalTime   + ", " + 
                                         "Departure: " + departureTime + ", " +
@@ -229,10 +240,10 @@ function displayTrainInfo(station)
     }
 
     xhttp.open("GET", url, true);
-
     xhttp.send();
 }
 
+// Changes a date string from ISO to a more user-friendly string
 function cleanUpDateString(dateString)
 {
     date = new Date(dateString);
@@ -406,6 +417,9 @@ function initMap()
 
 }
 
+// Adds all the stations in <stations> to a global
+// variable <allStations> so that they can be accessed
+// globally
 function addToAllStations(stations)
 {
     for (i = 0; i < stations.length; i++)
