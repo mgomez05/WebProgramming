@@ -1,13 +1,27 @@
-README for Lab 8 MBTA Map
+README for Lab 10 MBTA Map Part 2
 --------------------------
 
-For this assignment, I created an index.html page which displays a map with markers for MBTA lines and color-correspodent paths for each MBTA line represented. As of now, it displays the red, orange, and blue lines, along with the Fairmount commuter rail line.
+For the second part of the MBTA lab, I added geolocation and infowindows to my map,
+such that when a station marker is clicked it presents upcoming train information,
+and when the current location marker is clicked it shows the nearest station
+and the distance in miles to it, as well as a polyline connecting
+the current location to the closest station.
 
 Correctly Implemented Aspects
 ------------------------------
-I have correctly implemented all aspects of the lab--my map takes up the entire page with a center at South station, the markers I use are customized train markers (not google default markers), I have rendered a red polyline connecting all red line stations (while taking into account the fork at JFK/UMass), and I have used a separate file for the javascript (except for the script tag to include the javascript file.
+I have correctly implemented all aspects of the assignment. My web page determines the user's
+location using the navigator.geolocation object and displays a marker at the user's determined
+location (and the marker is distinct from the station markers). When this marker is clicked,
+it displays the closest station to the user and the distance in miles from the current location
+to that station. The web page also displays a polyline between the user and the closest station 
+(however, mine does so when the marker is clicked, rather than when the page is loaded, as it
+was left up to my discretion on a piazza discussion). And finally, the webpage also displays
+an infowindow when a station marker is clicked that displays parsed json information from the JSON API
+https://defense-in-derpth.herokuapp.com/redline indicating upcoming trains for that station.
 
-I have also implemented parts of the Going Beyond section, creating markers and polylines for the orange and blue lines with the appropriate colors. I have done the same for one of the commuter rail lines--the Fairmount line.
+The web page also handles potential errors such as receiving an empty response from the json API (as is the
+case with Wollaston station) and clicking on stations that don't have place_ids (as is the case with 
+stations that aren't on the red line).
 
 Collaboration Notes
 --------------------
@@ -15,6 +29,6 @@ I have not collaborated or discussed this assignment with anyone else.
 
 Time Spent
 -----------
-The assignment took me roughly 6 hours (with much time spent looking for coordinates of non-redline stations).
+The assignment took me roughly 8 hours (with much time spent trying to figure out how to figure out which station was associated with a given marker).
 
 
