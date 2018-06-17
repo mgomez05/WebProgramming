@@ -111,8 +111,8 @@ function findClosestStation(currentPosition, stations)
         if (havResult < minHavResult) 
         {
             minHavResult = havResult;
-            minIndex = i;
-            minStation = stations[i];
+            minIndex     = i;
+            minStation   = stations[i];
         } 
     }
 
@@ -183,36 +183,45 @@ function displayTrainInfo(station)
     {
         if (this.readyState == 4 && this.status == 200) 
         {
+
             jsonData = JSON.parse(xhttp.responseText);
             jsonData2 = jsonData["data"];
 
             contentString = "<h3>" + station.name + " Schedule:" + "</h3>";
 
-            for (i = 0; i < jsonData2.length; i++)
+            if (jsonData2.length == 0)
             {
-                var arrayElement  = jsonData2[i]["attributes"];
-
-                // Get attributes from JSON
-                var arrivalTime   = arrayElement["arrival_time"];
-                var departureTime = arrayElement["departure_time"];
-                var direction     = arrayElement["direction_id"]; 
-
-                if (direction = "1") direction = "Northbound to Alewife"
-                else                 direction = "Southbound to Ashmont/Braintree";
-                
-                if (arrivalTime == null) arrivalTime = "N/A";
-                else                     arrivalTime = cleanUpDateString(arrivalTime);                 
-                
-                if (departureTime == null) departureTime = "N/A"
-                else                       departureTime = cleanUpDateString(departureTime);               
-            
-                contentString +=  "<p>" + (i + 1) + ". " +
-                                  "Arrival: "   + arrivalTime   + ", " + 
-                                  "Departure: " + departureTime + ", " +
-                                  "Direction: " + direction + 
-                                  '</p>';
+                contentString += "<p>There are no upcoming trains scheduled for today</p>";
             }
+            else 
+            {
+                for (i = 0; i < jsonData2.length; i++)
+                {
+                
+                    var arrayElement  = jsonData2[i]["attributes"];
 
+                    // Get attributes from JSON
+                    var arrivalTime   = arrayElement["arrival_time"];
+                    var departureTime = arrayElement["departure_time"];
+                    var direction     = arrayElement["direction_id"]; 
+
+                    if (direction = "1") direction = "Northbound to Alewife"
+                    else                 direction = "Southbound to Ashmont/Braintree";
+                
+                    if (arrivalTime == null) arrivalTime = "N/A";
+                    else                     arrivalTime = cleanUpDateString(arrivalTime);                 
+                
+                    if (departureTime == null) departureTime = "N/A"
+                    else                       departureTime = cleanUpDateString(departureTime);               
+            
+                    contentString +=    "<p>" + (i + 1) + ". " +
+                                        "Arrival: "   + arrivalTime   + ", " + 
+                                        "Departure: " + departureTime + ", " +
+                                        "Direction: " + direction + 
+                                        '</p>';
+                }
+            }
+            
             infoWindow.setPosition(makePosition(station.lat, station.lng));
             infoWindow.setContent(contentString);
             infoWindow.open(map);
@@ -257,7 +266,7 @@ var ashmont           = makeStation(42.284652,   -71.06448899999999, "Ashmont", 
 var wollaston         = makeStation(42.2665139,  -71.0203369,        "Wollaston",         "place-wlsta");
 var fieldsCorner      = makeStation(42.300093,   -71.061667,         "Fields Corner",     "place-fldcr");
 var centralSquare     = makeStation(42.365486,   -71.103802,         "Central Square",     "place-cntsq");
-var braintree         = makeStation(42.2078543,  -71.0011385,        "Braintree",         "place-brntn");
+var braintree         = makeStation(42.2078543,  -71.0011385,          "Braintree",         "place-brntn");
 
 // Orange line stations
 var oakGrove         = makeStation(42.4353430165, -71.071189642,  "Oak Grove");
