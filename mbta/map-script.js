@@ -92,7 +92,12 @@ function onCurrentLocationMarkerClick(position)
     // the index of the closest station in the stations array and
     // distance to the closest station in miles
     infoWindow.setPosition(position);
-    infoWindow.setContent("<p>Closest to station " + closestStation.station.name + " with distance of " + closestStation.distance + " miles</p>");
+
+    var contentString = "<h3>Your Current Location</h3>";
+    contentString += "<p>"  + "Closest Station: "             + closestStation.station.name +            "</p>"; 
+    contentString += "<p> " + "Distance to Closest Station: " + closestStation.distance     + " miles" + "</p>";
+
+    infoWindow.setContent(contentString);
     infoWindow.open(map);                                    
 }
 
