@@ -91,14 +91,20 @@ function onCurrentLocationMarkerClick(position)
     // Set up infowindow at current position with 
     // the index of the closest station in the stations array and
     // distance to the closest station in miles
-    infoWindow.setPosition(position);
-
     var contentString = "<h3>Your Current Location</h3>";
     contentString += "<p>"  + "Closest Station: "             + closestStation.station.name +            "</p>"; 
     contentString += "<p> " + "Distance to Closest Station: " + closestStation.distance     + " miles" + "</p>";
 
+    infoWindow.setPosition(position);
     infoWindow.setContent(contentString);
-    infoWindow.open(map);                                    
+    infoWindow.open(map);           
+    
+    console.log(position);
+    var hereToThere = [position, closestStation.station];
+    
+    // Render a polyline between current location and closest station
+    createPath(hereToThere, 'DeepPink');
+    
 }
 
 // Finds the station in an array of stations that is closest to currentPosition
