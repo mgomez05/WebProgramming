@@ -82,7 +82,7 @@ function onStationMarkerClick(station)
 // Called when the marker at the user's current location is clicked
 function onCurrentLocationMarkerClick(position)
 {
-    var currentLocationInfoWindow = new google.maps.InfoWindow;
+    //var currentLocationInfoWindow = new google.maps.InfoWindow;
       
     // Finds index of closest station in the stations array
     // and the distance to it in miles
@@ -91,9 +91,9 @@ function onCurrentLocationMarkerClick(position)
     // Set up infowindow at current position with 
     // the index of the closest station in the stations array and
     // distance to the closest station in miles
-    currentLocationInfoWindow.setPosition(position);
-    currentLocationInfoWindow.setContent("Closest to station " + closestStation.station.name + " with distance of " + closestStation.distance + " miles");
-    currentLocationInfoWindow.open(map);                                    
+    infoWindow.setPosition(position);
+    infoWindow.setContent("<p>Closest to station " + closestStation.station.name + " with distance of " + closestStation.distance + " miles</p>");
+    infoWindow.open(map);                                    
 }
 
 // Finds the station in an array of stations that is closest to currentPosition
