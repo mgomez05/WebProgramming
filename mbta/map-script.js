@@ -76,7 +76,16 @@ function makeCurrentLocationMarker(position)
 // Called when a station marker is clicked
 function onStationMarkerClick(station)
 {
-    displayTrainInfo(station);
+    if (station.stopID != undefined) displayTrainInfo(station);
+    else 
+    {
+        contentString = makeTrainScheduleHeader(station.name);
+        contentString += "<p>Sorry, there is no train information available for this station</p>";
+
+        infoWindow.setContent(contentString);
+        infoWindow.setPosition(makePosition(station.lat, station.lng));
+        infoWindow.open(map);
+    }
 }
 
 // Called when the marker at the user's current location is clicked
@@ -99,7 +108,6 @@ function onCurrentLocationMarkerClick(position)
     infoWindow.setContent(contentString);
     infoWindow.open(map);           
     
-    console.log(position);
     var hereToThere = [position, closestStation.station];
     
     // Render a polyline between current location and closest station
@@ -189,6 +197,13 @@ function createPath(coordinateList, color)
     return path;
 }
 
+function makeTrainScheduleHeader(stationName)
+{
+    header  = "<h3>" + stationName + " Schedule:" + "</h3>";
+    header += "<h4>" + "Upcoming Trains:" + "</h4>"; 
+    return header;
+}
+
 // Requests upcoming train info for a station from a server 
 // and displays it in a user-friendly format in an infowindow
 //
@@ -206,7 +221,7 @@ function displayTrainInfo(station)
             json = JSON.parse(xhttp.responseText);
             jsonData = json["data"];
 
-            contentString = "<h3>" + station.name + " Schedule:" + "</h3>";
+            contentString = makeTrainScheduleHeader(station.name);
 
             // Check if any trains were returned in the response
             if (jsonData.length == 0)
@@ -226,13 +241,13 @@ function displayTrainInfo(station)
                     var direction     = arrayElement["direction_id"]; 
 
                     // Modify returned JSON data to more readable formats
-                    if (direction = "1") direction = "Northbound to Alewife"
+                    if (direction = "1") direction = "Northbound to Alewife";
                     else                 direction = "Southbound to Ashmont/Braintree";
                 
                     if (arrivalTime == null) arrivalTime = "N/A";
                     else                     arrivalTime = cleanUpDateString(arrivalTime);                 
                 
-                    if (departureTime == null) departureTime = "N/A"
+                    if (departureTime == null) departureTime = "N/A";
                     else                       departureTime = cleanUpDateString(departureTime);               
             
                     // Add the content to the infowindow content
@@ -258,7 +273,7 @@ function displayTrainInfo(station)
 function cleanUpDateString(dateString)
 {
     date = new Date(dateString);
-    dateString = date.toLocaleTimeString();  
+    dateString = date.toLocaleTimeString();
 
     return dateString;
 }
@@ -457,7 +472,7 @@ function locationCallback(position)
       // Make a marker for current location with default icon
       makeCurrentLocationMarker(pos);
 
-      map.setCenter(pos);
+      //map.setCenter(pos);
 
 }
 
