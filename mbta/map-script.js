@@ -30,7 +30,6 @@ function makeMarker(position, icon)
 
     if (icon != null) marker.setIcon(icon);
     
-
     return marker;
 }
 
@@ -104,15 +103,62 @@ function onCurrentLocationMarkerClick(position)
     contentString += "<p>"  + "Closest Station: "             + closestStation.station.name +            "</p>"; 
     contentString += "<p> " + "Distance to Closest Station: " + closestStation.distance     + " miles" + "</p>";
 
+    contentString += getDistanceTable(position, allStations);
+
     infoWindow.setPosition(position);
     infoWindow.setContent(contentString);
     infoWindow.open(map);           
     
-    var hereToThere = [position, closestStation.station];
+    var pathCurrentToClosest = [position, closestStation.station];
     
     // Render a polyline between current location and closest station
-    createPath(hereToThere, 'DeepPink');
+    createPath(pathCurrentToClosest, 'DeepPink');
+
+
     
+    
+}
+
+// Returns a table of stations from closest to farthest based on their distance
+// from the current location
+function getDistanceTable(position, stations)
+{
+    console.log("Get distance");
+    var tableString = "<table>";
+
+    tableString += "<tr>";
+    tableString += "<th>" + "Name"+ "</th>";
+    tableString += "<th>" + "Distance"+ "</th>";
+    tableString += "</tr>";
+
+    var sortedStations = [];
+
+    // Get distance from each station to position
+    for (i = 0; i < stations.length; i++)
+    {
+        stationPosition = makePosition(stations[i].lat, stations[i].lng);
+
+        sortedStations.push({station: stations[i], 
+                             distance: doHaversine(position, stationPosition)});   
+    }
+
+    // Sort stations by distance from least distance to greatest
+    sortedStations.sort(function(a,b) {
+        return a.distance - b.distance;
+    });
+
+    for (i = 0; i < sortedStations.length; i++)
+    {
+        tableString += "<tr>";
+        tableString += "<td>" + sortedStations[i].station.name + "</td>";
+        tableString += "<td>" + sortedStations[i].distance + "</td>";
+
+        tableString += "/<tr>";
+    }
+    
+    tableString += "</table>";
+
+    return tableString;
 }
 
 // Finds the station in an array of stations that is closest to currentPosition
