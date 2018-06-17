@@ -114,21 +114,18 @@ function onCurrentLocationMarkerClick(position)
     // Render a polyline between current location and closest station
     createPath(pathCurrentToClosest, 'DeepPink');
 
-
-    
-    
 }
 
 // Returns a table of stations from closest to farthest based on their distance
 // from the current location
 function getDistanceTable(position, stations)
 {
-    console.log("Get distance");
+    //console.log("Get distance");
     var tableString = "<table>";
 
     tableString += "<tr>";
-    tableString += "<th>" + "Name"+ "</th>";
-    tableString += "<th>" + "Distance"+ "</th>";
+    tableString += "<th>" + "Station"+ "</th>";
+    tableString += "<th>" + "Distance (miles)"+ "</th>";
     tableString += "</tr>";
 
     var sortedStations = [];
@@ -496,8 +493,26 @@ function addToAllStations(stations)
 {
     for (i = 0; i < stations.length; i++)
     {
-        allStations.push(stations[i]);
+        currentStation = stations[i];
+
+        if (!containsStation(currentStation.name, allStations))
+        {
+            allStations.push(currentStation);
+        }
     }
+}
+
+// Returns true if there is a station in <stations>
+// that has the same name as <name>
+// Otherwise returns false
+function containsStation(name, stations)
+{
+    for (var i = 0; i < stations.length; i++)
+    {
+        if (stations[i].name == name) return true;
+    }
+
+    return false;
 }
 
 // Called when there's an error getting the user's current location
