@@ -9,7 +9,6 @@ function parse()
 
         if (this.readyState == 4 && this.status == 200) 
         {
-            console.log(xhttp.responseText);
 
             // Parse the JSON Data
             jsonParsed = JSON.parse(xhttp.responseText);
