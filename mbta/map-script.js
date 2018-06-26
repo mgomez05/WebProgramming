@@ -257,7 +257,7 @@ function makeTrainScheduleHeader(stationName)
 // The infowindow appears over the station's location on the map
 function displayTrainInfo(station) 
 {   
-    var url = "https://defense-in-derpth.herokuapp.com/redline/schedule.json?stop_id="+ station.stopID;
+    var url = "https://mbta-server.herokuapp.com/redline/schedule.json?stop_id="+ station.stopID;
 
     var xhttp = new XMLHttpRequest();
 
