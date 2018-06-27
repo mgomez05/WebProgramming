@@ -116,6 +116,18 @@ function onCurrentLocationMarkerClick(position)
 
 }
 
+// Sends the current location coordinates to the server
+function sendCoordinatesToServer(position)
+{
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "https://mbta-server.herokuapp.com/updateDatabase", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    var body = "lat="+ position.lat + "&lon=" + position.lng;
+    //console.log(body);
+    xhttp.send(body);
+}
+
 // Returns a table of stations from closest to farthest based on their distance
 // from the current location
 function getDistanceTable(position, stations)
@@ -541,6 +553,9 @@ function locationCallback(position)
 
       // Make a marker for current location with default icon
       makeCurrentLocationMarker(pos);
+
+      // Send the user's current position to the mbta server
+      sendCoordinatesToServer(pos);
 
       //map.setCenter(pos);
 
