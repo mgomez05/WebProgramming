@@ -15,8 +15,8 @@
 <ul>
     <li>First tried typing characters that commonly cause issues in input forms ($, \, angle brackets, ", ', ?, !) </li>
     <li>Tried writing a script, but the input field didn't allow enough spaces to write starting and ending brackets</li>
-    <li>Tried leaving different fields blank</li>
-        Didn't seem to do much
+    <li>Tried leaving different fields blank
+        (Didn't seem to do much)</li>
     <li>Tried non-numerical values in login field, and text values in latitude and longitude field</li>
     <li>Tried very large numerical inputs for latitude and longitude</li>
     <li>Tried negative numbers in the input field</li>
@@ -24,16 +24,25 @@
     <li>Pressed submit button multiple times</li>
     <li>Pressed reset button multiple times</li>
     <li>logged in with the username "abc" and tried adding scripts to latitude and longitude</li>
+    <li>Opened up the source and looked for vulnerabilities</li>
+    <li>Tried a mongodb query using the $ne operator and got an http 505 error in response that says http version not supported</li>
+    <li>Tried finding a place to put a script tag and found it using the curl</li>
+<!-- curl -d "lat=23&lng=27&login=<script>alert(\"hello\")</script>" -X POST https://jordan-marsh.herokuapp.com/submit-->
 </ul>
 <h2>Abstract of Findings</h2>
 <p></p>
 <h2>Issues Found</h2>
     <ul>
-        <li>When you type a number larger than 400, the app crashes and you come to a submit page with an error message</li>
-        I entered hello, 444, and login and it crashed it
+        <li>When you type a number larger than 400, the app crashes and you come to a submit page with an error message
+        (I entered hello, 444, and login and it crashed it) (I later realized this was because there
+         was an if statement checking if lat was between -90 and 90 and lng was between -180 and 180
+        but, that there was no else, and so server never sent back a response)</li>
         <li>Says something went terribly wrong when hitting submit with all fields empty</li>
         <li>The page does not display any data on the home page</li>
         <li>When entering non-numerical characters into lat and longitude fields, it says something went terribly wrong</li>
+        <li>I did a post to the submit path with the body parameters lat, lng, and login and was
+            able to succesfully login as a new user
+        </li>
     </ul>
 <h2>Conclusion</h2>
 <ul></ul>
