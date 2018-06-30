@@ -21,57 +21,69 @@
     for public use. This document identifies those vulnerabilities and suggests solutions for them.</p>
 
 <h2>Methodology</h2>
-<p>Testing was first carried out "black-box", using just what would be available to an 
-    attacker. I tested several different inputs in the input field on the login page,
+<p>Testing was first carried out "black-box", using only what would be available to an 
+    attacker. I tested several different inputs in the input field on the login page (/entry.html),
     then tried creating urls with potentially dangerous query parameters (i.e null parameters,
-    strange values, etc.) 
+    strange values, etc.) Some of the different inputs included characters that commonly causes
+    issues in input forms, such as $, \, angle brackets, ", ', ?, !, directly writing script
+    tags into the input fields (this did not work as there was a character limit), leaving
+    different fields blank, trying non-numerical values for the login field, and text chars for the latitude
+    and longitude fields, and using very large or negative numbers for the latitude and longitude fields.
+    I also tried guessing different query parameters for the submit page, pressing
+    the submit and reset button multiple times. 
     
     I then moved over to white box testing, analyzing the source code for the server 
     and its dependencies (server-vuln.js and package.json respectively) supplied on the assignment
-    website, and testing my insights with more informed testing. Somes of these tests were carried
+    website, and using my insights to perform informed testing. Somes of these informed tests were carried
     out using a local version of the server, with a local mongodb database and local heroku instance, 
     and making requests with curl or in address bar of my browser. I would often modify
     the local version of the server and test it to see how the behavior changed, adding
-    console.log() statements and changing if statements, and then test the local server.
+    console.log() statements and changing "if statements", and then testing the local server.
     Other times I would test the real server located at https://jordan-marsh.herokuapp.com/.
     All these whitebox tests used information about the different paths and parameters
-    for the application, which I discovered by analyzing the source code.
+    for the application, which I discovered by analyzing the source code. In particular, my tests
+    centered on attempting cross site scripting, revealing hidden contents of the mongodb
+    database, and making users 
+    revovled around trying to 
 </p>
-<ul>
-    <li>First tried typing characters that commonly cause issues in input forms ($, \, angle brackets, ", ', ?, !) </li>
-    <li>Tried writing a script, but the input field didn't allow enough spaces to write starting and ending brackets</li>
-    <li>Tried leaving different fields blank
-        (Didn't seem to do much)</li>
-    <li>Tried non-numerical values in login field, and text values in latitude and longitude field</li>
-    <li>Tried very large numerical inputs for latitude and longitude</li>
-    <li>Tried negative numbers in the input field</li>
-    <li>Tried different query parameters for the submit page</li>
-    <li>Pressed submit button multiple times</li>
-    <li>Pressed reset button multiple times</li>
-    <li>logged in with the username "abc" and tried adding scripts to latitude and longitude</li>
-    <li>Opened up the source and looked for vulnerabilities</li>
-    <li>Tried a mongodb query using the $ne operator and got an http 505 error in response that says http version not supported</li>
-    <li>Tried a mongodb query using the $ne operator and got the server to dump all documents that have a login attribute</li>
-    <!-- https://jordan-marsh.herokuapp.com/checkins.json?login[$ne]=mchowasdglkj-->
-    <li>Tried finding a place to put a script tag and found it using the curl</li>
-    
-<!-- curl -d "lat=23&lng=27&login=<script>alert(\"hello\")</script>" -X POST https://jordan-marsh.herokuapp.com/submit-->
-</ul>
+
 <h2>Abstract of Findings</h2>
-<p></p>
+<p>As with most security issues, many vulnerabilities in Jordan-Marsh result from a lack
+    of santitation and validation of user input. Multiple vulnerabilities let an attacker 
+    manipulate the website by submitting javascript or mongodb commands as query parameters 
+    in urls (such as the login parameter). The website also allows for cross origin access
+    on multiple paths which allows other website to directly post information to the website, 
+    and thus manipulate it in dangerous ways.
+</p>
+<p>It's also important to note that while While many inputs prompt the message "Whoops, 
+        something went terribly wrong with your data entry.", these messages are anticipated
+        by the server and don't actually crash it. This lead to many false positives
+        during black box testing 
+</p>
 <h2>Issues Found</h2>
+    <p></p>
     <ul>
-        <li>When you type a number larger than 400, the app crashes and you come to a submit page with an error message
-        (I entered hello, 444, and login and it crashed it) (I later realized this was because there
-         was an if statement checking if lat was between -90 and 90 and lng was between -180 and 180
-        but, that there was no else, and so server never sent back a response)</li>
-        <li>Says something went terribly wrong when hitting submit with all fields empty</li>
+        <li>When you type a latitude outside the range [-90,90] or a longitude outside the range
+            [-180, 180] the app waits a while and then a page from heroku will come up informing 
+            you that an error occured in the application. (I later realized this was because there 
+            was an if statement checking if lat was between -90 and 90 and lng was between -180 and 180, 
+            but there was no "else statement", so the server never sends back a response)</li>
         <li>The page does not display any data on the home page</li>
         <li>When entering non-numerical characters into lat and longitude fields, it says something went terribly wrong</li>
         <li>I did a post to the submit path with the body parameters lat, lng, and login and was
             able to succesfully login as a new user
         </li>
     </ul>
+
+    <ul>
+
+            <li>Tried a mongodb query using the $ne operator and got the server to dump all documents that have a login attribute</li>
+            <!-- https://jordan-marsh.herokuapp.com/checkins.json?login[$ne]=mchowasdglkj-->
+            <li>Tried finding a place to put a script tag and found it using the curl</li> 
+            <!-- curl -d "lat=23&lng=27&login=<script>alert(\"hello\")</script>" -X POST https://jordan-marsh.herokuapp.com/submit-->
+        
+            <!-- curl -d "lat=23&lng=27&login=newUser" -X POST https: https://jordan-marsh.herokuapp.com/sendLocation can create a new user -->
+        </ul>
 <h2>Conclusion</h2>
 <ul></ul>
 
