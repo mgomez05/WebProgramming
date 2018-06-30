@@ -67,51 +67,78 @@
 <h2>Issues Found</h2>
     <p></p>
     <ul>
-        
+            <li><h3>Injection of Addtional Database Information</h3>
+                <p>Users are able to make new locations whenever they want by making direct posts to the 
+                web application.
+                I made a post posted to the '/sendLocation' path with the body parameters lat, lng, and login and was
+                able to succesfully create a new location.
+                (i.e.
+                <code>curl -d "lat=23&amplng=27&amplogin=newUser" -X POST https: https://jordan-marsh.herokuapp.com/sendLocation</code>).
+                </p>
+                <p>Overall, this
+                issue has a fairly low severity, for while is allows the user to bypass the normal flow of the 
+                application, there appears to be no authentication mechanism for the server. In other words,
+                anyone can login to the server anyway--even if they don't use a valid username, they can still
+                check the home page easily. It could theoretically overwhelm the server's database with massive
+                amounts of useless data, but this would mainly be an inconvenience.
+                </p>
+                <p>This issue can be resolved by requiring some sort of authentication before 
+                   accepting the post, such as a CSRF token, or by santizing post parameters</p>
+            </li>
         <li><h3>Application Error on Invalid Latitude or Longitude</h3>When you type a latitude outside the range [-90,90] or a longitude outside the range
             [-180, 180] the app waits a while and then a page from heroku will come up informing 
             you that an error occured in the application. This results from the fact that in the server code, there 
             is an if statement checking if lat was between -90 and 90 and lng is between -180 and 180, 
-            but there is no "else statement", so the server never sends back a response). Overall, this
+            but there is no "else statement", so the server never sends back a response). 
+            <p>Overall, this
             issue has a low severity, for while it is inconvenient and unsettling to the 
             user experience, it is caught by the heroku framework and does not crash the server. If the 
             user simply hits the back button or refreshes, the error vanishes. However, if this is done
-            several times, it could take up server resources.
+            several times, it could take up server resources. 
+            </p>
+            <p>
+                This issue can be resolved if the server handles the "else" case for the "if statement"
+                and sends a response to the user saying that the input wasn't valid.
+            </p>
         </li>
-        <li><h3>Injection of Addtional Database Information</h3>Users are able to make new locations whenever they want by making direct posts to the 
-            web application.
-            I made a post posted to the '/sendLocation' path with the body parameters lat, lng, and login and was
-            able to succesfully create a new location.
-            (i.e. <code>curl -d "lat=23&amplng=27&amplogin=newUser" -X POST https: https://jordan-marsh.herokuapp.com/sendLocation</code>)
-            Overall, this
-            issue has a fairly low severity, for while is allows the user to bypass the normal flow of the 
-            application, there appears to be no authentication mechanism for the server. In other words,
-            anyone can login to the server anyway--even if they don't use a valid username, they can still
-            check the home page easily. It could theoretically overwhelm the server's database with massive
-            amounts of useless data, but this would mainly be an inconvenience.
-        </li>
-        <li><h3>Viewing of Database Contents</h3>You can dump the contents of the mongodb database (or at least a lot of it) that's
+  
+        <li><h3>Viewing of Database Contents</h3>
+            <p>You can dump the contents of the mongodb database (or at least a lot of it) that's
             attached to the server by putting in the $ne operator in one of the query parameters
             for the 'checkins.json' path. This returns all documents in the locations collection where
             the login field is not equal to "russ" (as you might imagine, this returns almost any document
             with a login attribute).
-            (i.e. put <code>https://jordan-marsh.herokuapp.com/checkins.json?login[$ne]=russ</code>)
-            Overall, this
+            (i.e. put <code>https://jordan-marsh.herokuapp.com/checkins.json?login[$ne]=russ</code>).
+            </p>
+            <p>Overall, this
             issue has a moderate severity, because it allows users to view large amounts of the 
             contents of the database, which could become an important privacy issue if sensitive
             information was stored in the database. As of now, the information stored seems relatively
-            arbitrary (a user can enter any login and any latitude and longitude already ), so this 
+            arbitrary (a user can enter any login and any latitude and longitude already), so this 
             isn't a high risk, but it could become one if the web application starts storing
             sensitive information.
+            </p>
+            <p>This issue can be resolved by santizing GET parameters by escaping 
+               dangerous characters</p>
         </li>
-        <li> <h3>Cross Site Scripting</h3>Although you can't type a full script into the input field for 'login' at '/entry.html' (there's 
+        <li> <h3>Cross Site Scripting</h3>
+            <p>Although you can't type a full script into the input field for 
+            'login' at '/entry.html' (there's 
             a limit on the number chars that can be typed into the input fields) you can input 
             javascript into the database that will be returned at the home page by using query parameters
             at the '/submit' path (specifically, lat, lng, and login). While the server checks that
             lat and lng are float values, there is no checking done for login, other than that it isn't null. 
             Knowing this, I was able to get a simple "hello" alert to appear on the home page after running
-            the following command with curl.
-            <code>curl -d "lat=23&amplng=27&amplogin=&ltscript&gtalert(\"hello\")&lt/script&gt" -X POST https://jordan-marsh.herokuapp.com/submit</code>
+            the following command with curl:
+            <code>curl -d "lat=23&amplng=27&amplogin=&ltscript&gtalert(\"hello\")&lt/script&gt" -X POST https://jordan-marsh.herokuapp.com/submit</code>.
+            </p>
+            <p>Overall this issue has a high severity, as it can be exploited to make the home page for a viewer
+            practically useless and unviewable--a simple while loop with alerts could prevent the user from ever viewing the expected 
+            contents for the page. A malicious script could also access cookies, session storage data, or search 
+            history if desired, which presents a privacy issue as well.
+            </p>
+            <p>This issue can be resolved by santiziing the post parameters for the '/submit' path 
+               particularly by escaping the angle bracket characters  </p>
         </li>
     </ul>
 <h2>Conclusion</h2>
