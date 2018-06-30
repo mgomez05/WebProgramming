@@ -26,7 +26,10 @@
     <li>logged in with the username "abc" and tried adding scripts to latitude and longitude</li>
     <li>Opened up the source and looked for vulnerabilities</li>
     <li>Tried a mongodb query using the $ne operator and got an http 505 error in response that says http version not supported</li>
+    <li>Tried a mongodb query using the $ne operator and got the server to dump all documents that have a login attribute</li>
+    <!-- https://jordan-marsh.herokuapp.com/checkins.json?login[$ne]=mchowasdglkj-->
     <li>Tried finding a place to put a script tag and found it using the curl</li>
+    
 <!-- curl -d "lat=23&lng=27&login=<script>alert(\"hello\")</script>" -X POST https://jordan-marsh.herokuapp.com/submit-->
 </ul>
 <h2>Abstract of Findings</h2>
