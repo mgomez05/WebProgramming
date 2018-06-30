@@ -8,7 +8,9 @@
     <!--<link rel="stylesheet" href="styles.css">-->
 </head>
 
-<h1>Security Assessment of the Jordan-Marsh Server </h1>
+<h1>Security Assessment of the Jordan-Marsh Server</h1>
+<p>Prepared by Russ Gomez • 6/30/18</p>
+
 <h2>Introduction</h2>
 <p>This assessment tests the security of the Jordan-Marsh web application developed by 
     Ming Chow for Comp20 Lab 13. From what I've gathered while testing it,Jordan-Marsh 
@@ -19,6 +21,22 @@
     for public use. This document identifies those vulnerabilities and suggests solutions for them.</p>
 
 <h2>Methodology</h2>
+<p>Testing was first carried out "black-box", using just what would be available to an 
+    attacker. I tested several different inputs in the input field on the login page,
+    then tried creating urls with potentially dangerous query parameters (i.e null parameters,
+    strange values, etc.) 
+    
+    I then moved over to white box testing, analyzing the source code for the server 
+    and its dependencies (server-vuln.js and package.json respectively) supplied on the assignment
+    website, and testing my insights with more informed testing. Somes of these tests were carried
+    out using a local version of the server, with a local mongodb database and local heroku instance, 
+    and making requests with curl or in address bar of my browser. I would often modify
+    the local version of the server and test it to see how the behavior changed, adding
+    console.log() statements and changing if statements, and then test the local server.
+    Other times I would test the real server located at https://jordan-marsh.herokuapp.com/.
+    All these whitebox tests used information about the different paths and parameters
+    for the application, which I discovered by analyzing the source code.
+</p>
 <ul>
     <li>First tried typing characters that commonly cause issues in input forms ($, \, angle brackets, ", ', ?, !) </li>
     <li>Tried writing a script, but the input field didn't allow enough spaces to write starting and ending brackets</li>
