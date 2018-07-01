@@ -5,157 +5,144 @@
     <title>Security Report Comp 20 Lab 12</title>
     <meta charset="UTF-8">
 
-    <!--<link rel="stylesheet" href="styles.css">-->
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<h1>Security Assessment of the Jordan-Marsh Server</h1>
-<p>Prepared by Russ Gomez • 6/30/18</p>
+<h1>Security Assessment of the Jordan-Marsh Web Application</h1>
+<p class="authorNote">Prepared by Russ Gomez • 6/30/18</p>
 
 <h2>Introduction</h2>
-<p>This assessment tests the security of the Jordan-Marsh web application developed by 
-    Ming Chow for Comp20 Lab 13. From what I've gathered while testing it,Jordan-Marsh 
-    is a fairly straightforward application--On a login page, it allows users to signin  
-    with their latitude and longitude, and then prompts then to go to the home page,
-    where a list of recent logins, complete with name, latitude, and longitude, and time,
-    can be found. However, vulnerabilities in the application currently make it unsuitable 
-    for public use. This document identifies those vulnerabilities and suggests solutions for them.</p>
+<p>This assessment tests the security of the Jordan-Marsh web application developed by Ming Chow for Comp20 Lab 13. From what
+    I've gathered while testing it, Jordan-Marsh is a fairly straightforward web application--on a login page, it allows
+    users to signin with their latitude and longitude, and then prompts then to go to the home page, where a list of recent
+    logins, complete with name, latitude, and longitude, and time, can be found. However, vulnerabilities in the application
+    currently make it unsuitable for public use. This document identifies those vulnerabilities and suggests solutions for
+    them.</p>
 
 <h2>Methodology</h2>
-<p>Testing was first carried out "black-box", using only what would be available to an 
-    attacker. I tested several different inputs in the input field on the login page (/entry.html),
-    then tried creating urls with potentially dangerous query parameters (i.e null parameters,
-    strange values, etc.) Some of the different inputs included characters that commonly causes
-    issues in input forms, such as $, \, angle brackets, ", ', ?, !, directly writing script
-    tags into the input fields (this did not work as there was a character limit), leaving
-    different fields blank, trying non-numerical values for the login field, and text chars for the latitude
-    and longitude fields, and using very large or negative numbers for the latitude and longitude fields.
-    I also tried guessing different query parameters for the submit page, pressing
-    the submit and reset button multiple times. 
-    
-    I then moved over to white box testing, analyzing the source code for the server 
-    and its dependencies (server-vuln.js and package.json respectively) supplied on the assignment
-    website, and using my insights to perform informed testing. Somes of these informed tests were carried
-    out using a local version of the server, with a local mongodb database and local heroku instance, 
-    and making requests with curl or in address bar of my browser. I would often modify
-    the local version of the server and test it to see how the behavior changed, adding
-    console.log() statements and changing "if statements", and then testing the local server.
-    Other times I would test the real server located at https://jordan-marsh.herokuapp.com/.
-    All these whitebox tests used information about the different paths and parameters
-    for the application, which I discovered by analyzing the source code. In particular, my tests
-    centered on attempting cross site scripting, revealing hidden contents of the mongodb
-    database, and making users 
-    revovled around trying to 
+<p>Testing was first carried out "black-box", using only what would be available to an attacker. I tested several different
+    inputs in the input field on the login page (/entry.html), then tried creating urls with potentially dangerous query
+    parameters (i.e null parameters, strange values, etc.) Some of the different inputs included characters that commonly
+    causes issues in input forms, such as $, \, angle brackets, ", ', ?, !, and directly writing script tags into the input fields
+    (this did not work as there was a character limit), leaving different fields blank, trying non-numerical values for the
+    login field, and text chars for the latitude and longitude fields, and using very large or negative numbers for the latitude
+    and longitude fields. I also tried guessing different query parameters for the submit page, pressing the submit and reset
+    button multiple times.
+</p>
+<p>I then moved over to white box testing, analyzing the source code for the server and its dependencies (server-vuln.js and
+    package.json respectively) supplied on the assignment website, and using my insights to perform informed testing. Somes
+    of these informed tests were carried out using a local version of the server, with a local mongodb database and local
+    heroku instance, and making requests with curl or in address bar of my browser. I would often modify the local version
+    of the server and test it to see how the behavior changed, adding console.log() statements and changing "if statements",
+    and then testing the local server. Other times I would test the real server located at https://jordan-marsh.herokuapp.com/.
+    All these whitebox tests used information about the different paths and parameters for the application, which I discovered
+    by analyzing the source code. In particular, my tests centered on attempting cross site scripting, revealing hidden contents
+    of the mongodb database, and making users revovled around trying to
 </p>
 
 <h2>Abstract of Findings</h2>
-<p>As with most security issues, many vulnerabilities in the Jordan-Marsh application result from a lack
-    of santitation and validation of user input. Multiple vulnerabilities let an attacker 
-    manipulate the website by submitting javascript or mongodb commands as query parameters 
-    in urls (such as the login parameter). There are also several inputs which cause
-    the website to hang and ultimately crash since the server assumes valid inputs will
-    be provided for certain fields, such as the latitude and longitude field.
-    The website also allows for cross origin access
-     which allows other sources to directly post information to the website and in turn
-     the database, manipulating them both in dangerous ways.
+<p>As with most security issues, many vulnerabilities in the Jordan-Marsh application result from a lack of santitation and
+    validation of user input. Multiple vulnerabilities let an attacker manipulate the website by submitting javascript or
+    mongodb commands as query parameters in urls (such as the login parameter). There are also several inputs which cause
+    the website to hang and ultimately crash since the server assumes valid inputs will be provided for certain fields, such
+    as the latitude and longitude field. The website also allows for cross origin access which allows other sources to directly
+    post information to the website and in turn the database, manipulating them both in dangerous ways.
 </p>
-<p>However, it's also important to note that while many inputs prompt the message "Whoops, 
-        something went terribly wrong with your data entry.", these messages are anticipated
-        by the server and don't actually crash it. This can lead to many false positives
-        during black box testing, as the tester may assume these messages are only printed
-        in very extreme cases (when in fact they can be quite common ones).
+<p>However, it's also important to note that while many inputs prompt the message "Whoops, something went terribly wrong with
+    your data entry.", these messages are anticipated by the server and don't actually crash it. This can lead to many false
+    positives during black box testing, as the tester may assume these messages are only printed in very extreme cases (when
+    in fact they can be quite common ones).
 </p>
 <h2>Issues Found</h2>
-    <p></p>
-    <ul>
-            <li><h3>Injection of Addtional Database Information</h3>
-                <p>Users are able to make new locations whenever they want by making direct posts to the 
-                web application.
-                I made a post posted to the '/sendLocation' path with the body parameters lat, lng, and login and was
-                able to succesfully create a new location.
-                (i.e.
-                <code>curl -d "lat=23&amplng=27&amplogin=newUser" -X POST https: https://jordan-marsh.herokuapp.com/sendLocation</code>).
-                </p>
-                <p>Overall, this
-                issue has a fairly low severity, for while is allows the user to bypass the normal flow of the 
-                application, there appears to be no authentication mechanism for the server. In other words,
-                anyone can login to the server anyway--even if they don't use a valid username, they can still
-                check the home page easily. It could theoretically overwhelm the server's database with massive
-                amounts of useless data, but this would mainly be an inconvenience.
-                </p>
-                <p>This issue can be resolved by requiring some sort of authentication before 
-                   accepting the post, such as a CSRF token, or by santizing post parameters.</p>
-            </li>
-        <li><h3>Application Error on Invalid Latitude or Longitude</h3>When you type a latitude outside the range [-90,90] or a longitude outside the range
-            [-180, 180] the app waits a while and then a page from heroku will come up informing 
-            you that an error occured in the application. This results from the fact that in the server code, there 
-            is an if statement checking if lat was between -90 and 90 and lng is between -180 and 180, 
-            but there is no "else statement", so the server never sends back a response). 
-            <p>Overall, this
-            issue has a low severity, for while it is inconvenient and unsettling to the 
-            user experience, it is caught by the heroku framework and does not crash the server. If the 
-            user simply hits the back button or refreshes, the error vanishes. However, if this is done
-            several times, it could take up server resources. 
-            </p>
-            <p>
-                This issue can be resolved if the server handles the "else" case for the "if statement"
-                and sends a response to the user saying that the input wasn't valid.
-            </p>
-        </li>
-  
-        <li><h3>Viewing of Database Contents</h3>
-            <p>You can dump the contents of the mongodb database (or at least a lot of it) that's
-            attached to the server by putting in the $ne operator in one of the query parameters
-            for the 'checkins.json' path. This returns all documents in the locations collection where
-            the login field is not equal to "russ" (as you might imagine, this returns almost any document
-            with a login attribute).
-            (i.e. put <code>https://jordan-marsh.herokuapp.com/checkins.json?login[$ne]=russ</code>).
-            </p>
-            <p>Overall, this
-            issue has a moderate severity, because it allows users to view large amounts of the 
-            contents of the database, which could become an important privacy issue if sensitive
-            information was stored in the database. As of now, the information stored seems relatively
-            arbitrary (a user can enter any login and any latitude and longitude already), so this 
-            isn't a high risk, but it could become one if the web application starts storing
+<ul>
+    <li>
+        <h3>Injection of Addtional Database Information</h3>
+        <p>Users are able to make new locations whenever they want by making direct posts to the web application. I made a post
+            posted to the '/sendLocation' path with the body parameters lat, lng, and login and was able to succesfully create
+            a new location. (i.e.
+            <code>curl -d "lat=23&amplng=27&amplogin=newUser" -X POST https: https://jordan-marsh.herokuapp.com/sendLocation</code>).
+        </p>
+        <p>Overall, this issue has a fairly low severity, for while is allows the user to bypass the normal flow of the application,
+            there appears to be no authentication mechanism for the server. In other words, anyone can login to the server
+            anyway--even if they don't use a valid username, they can still check the home page easily. It could theoretically
+            overwhelm the server's database with massive amounts of useless data, but this would mainly be an inconvenience.
+        </p>
+        <p>This issue can be resolved by requiring some sort of authentication before accepting the post, such as a CSRF token,
+            or by santizing post parameters.</p>
+    </li>
+    <li>
+        <h3>Application Error on Invalid Latitude or Longitude</h3>When you type a latitude outside the range [-90,90] or a longitude
+        outside the range [-180, 180] the app waits a while and then a page from heroku will come up informing you that an
+        error occured in the application. This results from the fact that in the server code, there is an if statement checking
+        if lat was between -90 and 90 and lng is between -180 and 180, but there is no "else statement", so the server never
+        sends back a response).
+        <div class="screenshotDiv">
+            <p>Input for Application Error:</p>
+            <img src="./InputForApplicationErrorJordan-Marsh.png" alt="Input for Application Error">
+        </div>
+        <div class="screenshotDiv">
+            <p>Resulting Application Error:</p>
+            <img src="./ApplicationErrorJordan-Marsh.png" alt="Application Error" style="width: 70%; height:70%;">
+        </div>
+
+        <p>Overall, this issue has a low severity, for while it is inconvenient and unsettling to the user experience, it is
+            caught by the heroku framework and does not crash the server. If the user simply hits the back button or refreshes,
+            the error vanishes. However, if this is done several times, it could take up server resources.
+        </p>
+
+        <p>
+            This issue can be resolved if the server handles the "else" case for the "if statement" and sends a response to the user
+            saying that the input wasn't valid.
+        </p>
+    </li>
+
+    <li>
+        <h3>Viewing of Database Contents</h3>
+        <p>You can dump the contents of the mongodb database (or at least a lot of it) that's attached to the server by putting
+            in the $ne operator in one of the query parameters for the 'checkins.json' path. This returns all documents in
+            the locations collection where the login field is not equal to "russ" (as you might imagine, this returns almost
+            any document with a login attribute). (i.e. put
+            <code>https://jordan-marsh.herokuapp.com/checkins.json?login[$ne]=russ</code>).
+        </p>
+        <p>Overall, this issue has a moderate severity, because it allows users to view large amounts of the contents of the
+            database, which could become an important privacy issue if sensitive information was stored in the database.
+            As of now, the information stored seems relatively arbitrary (a user can enter any login and any latitude and
+            longitude already), so this isn't a high risk, but it could become one if the web application starts storing
             sensitive information.
-            </p>
-            <p>This issue can be resolved by santizing GET parameters by escaping 
-               dangerous characters.</p>
-        </li>
-        <li> <h3>Cross Site Scripting</h3>
-            <p>Although you can't type a full script into the input field for 
-            'login' at '/entry.html' (there's 
-            a limit on the number chars that can be typed into the input fields) you can input 
-            javascript into the database that will be returned at the home page by using query parameters
-            at the '/submit' path (specifically, lat, lng, and login). While the server checks that
-            lat and lng are float values, there is no checking done for login, other than that it isn't null. 
-            Knowing this, I was able to get a simple "hello" alert to appear on the home page after running
-            the following command with curl:
+        </p>
+        <p>This issue can be resolved by santizing GET parameters by escaping dangerous characters.</p>
+    </li>
+    <li>
+        <h3>Cross Site Scripting</h3>
+        <p>Although you can't type a full script into the input field for 'login' at '/entry.html' (there's a limit on the number
+            chars that can be typed into the input fields) you can input javascript into the database that will be returned
+            at the home page by using query parameters at the '/submit' path (specifically, lat, lng, and login). While the
+            server checks that lat and lng are float values, there is no checking done for login, other than that it isn't
+            null. Knowing this, I was able to get a simple "hello" alert to appear on the home page after running the following
+            command with curl:
             <code>curl -d "lat=23&amplng=27&amplogin=&ltscript&gtalert(\"hello\")&lt/script&gt" -X POST https://jordan-marsh.herokuapp.com/submit</code>.
-            </p>
-            <p>Overall this issue has a high severity, as it can be exploited to make the home page for a viewer
-            practically useless and unviewable--a simple while loop with alerts could prevent the user from ever viewing the expected 
-            contents for the page. A malicious script could also access cookies, session storage data, or search 
-            history if desired, which presents a privacy issue as well.
-            </p>
-            <p>This issue can be resolved by santiziing the post parameters for the '/submit' path, 
-               particularly by escaping the angle bracket characters.</p>
-        </li>
-    </ul>
+        </p>
+        <p>Overall this issue has a high severity, as it can be exploited to make the home page for a viewer practically useless
+            and unviewable--a simple while loop with alerts could prevent the user from ever viewing the expected contents
+            for the page. A malicious script could also access cookies, session storage data, or search history if desired,
+            which presents a privacy issue as well.
+        </p>
+        <p>This issue can be resolved by santiziing the post parameters for the '/submit' path, particularly by escaping the
+            angle bracket characters.</p>
+    </li>
+</ul>
 <h2>Conclusion</h2>
 
-<p>Issues with the Jordan-Marsh application can make its website unreliable, inconvenient,
-   or in extreme cases, unusable. However, with simple techniques such as sanitizing and validating input,
-   and handling different cases of user input, this web application can become much less vulnerable to 
-   attacks. That being said, the website itself still allows for any user to view recent
-   logins and post data to it, which poses an issue of trust between the client and 
-   the application--how can the user trust any data on the website if really anyone
-   can add to its database without any restrictions on the input other than their
-   latitude and longitude? Further, how can any user trust that their data is safe if anyone
-   can view the homepage with their login information? If these more overarching issues
-   are to be resolved, there needs to be a more involved authentication process for 
-   users who want to view and interact with the web application, otherwise the information
-   can never be trusted as valid or safe in terms of privacy.
- </p>
+<p>Issues with the Jordan-Marsh application can make its website unreliable, inconvenient, or in extreme cases, unusable. However,
+    with simple techniques such as sanitizing and validating input, and handling different cases of user input, this web
+    application can become much less vulnerable to attacks. That being said, the website itself still allows for any user
+    to view recent logins and post data to it, which poses an issue of trust between the client and the application--how
+    can the user trust any data on the website if anyone can add to its database without any strong restrictions? Further,
+    how can any user trust that their data is safe if anyone can view the homepage with everyone's login information? In
+    order to resolve these overarching issues, there needs to be a more involved authentication process for users who want
+    to view and interact with the web application, otherwise the information can never be trusted as valid or safe in terms
+    of privacy.
+</p>
 
 <body>
 

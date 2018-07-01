@@ -1,0 +1,50 @@
+body {
+    background-color: darkseagreen;
+}
+
+h1 {
+    border-style: solid;
+    border-color: green;
+    background-color: red;
+    text-align: center;
+}
+
+h2 {
+   border-style: solid;
+   border-color: green;
+   background-color: CornflowerBlue;
+   padding-left: 10px;
+}
+
+.authorNote {
+    border-style: solid;
+    border-color: green;
+    background-color: yellowgreen;
+    padding-left: 10px;
+    text-align: center;
+}
+
+p {
+    text-indent: 2em;
+    border-style: solid;
+    border-color: darkseagreen;
+}
+
+img {
+
+}
+
+.screenshotDiv {
+    border: solid 1px; 
+    padding: 10px; 
+    
+}
+
+
+h3 {
+    border-style: solid;
+    border-color: green;
+    background-color: SandyBrown;
+    padding-left: 10px;
+}
+
