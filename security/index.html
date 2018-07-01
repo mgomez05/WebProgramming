@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+<body>
 <h1>Security Assessment of the Jordan-Marsh Web Application</h1>
 <p class="authorNote">Prepared by Russ Gomez • 6/30/18</p>
 
@@ -61,7 +62,7 @@
             entirely through analyzing the source code, as I had no idea the '/sendLocation' path (the route where a new location can be made)
             even existed when performing only black box tests. But after coming to the conclusion, I tested out the theory by making a post
         to the '/sendLocation' path with the body parameters lat, lng, and login and was able to succesfully create
-            a new location. <!--(i.e.
+            a new location.</p> <!--(i.e.
             <code>curl -d "lat=23&amplng=27&amplogin=newUser" -X POST https: https://jordan-marsh.herokuapp.com/sendLocation</code>).-->
             
             <div class="screenshotDiv">
@@ -74,7 +75,6 @@
             </div>
             
         
-        </p>
         <p>Overall, this issue has a high severity--it allows the user to bypass the normal flow of the application by skipping the normal process for making
            a location (by providing valid input at the 'entry.html' page), and potentially perform cross site scripting (see the "Cross Site Scripting" section for more details).
            Beyond that, it could also overwhelm the server by using up its database memory--it's possible that the server
@@ -149,10 +149,10 @@
             For while the
             server checks that the query parameters lat and lng are float values, there are no checks in place for the login parameter, other than a check for
             a null value, so a user can make the server innocently store "login" strings with malicious javascript into its database. And then later, when listing the contents of its database on the home page, it will write down the 
-            script when trying to write a log of concatenated strings, because it retrieves the dangerous login string without santizing it: <p><code>indexPage += "&ltli&gt" + results[count].login + " checked in at " + results[count].lat + ", " + results[count].lng ... "&lt/li&gt";</code></p>
-                Knowing all this, I was able to get a simple "hello" alert to appear on the home page after running the following
-            command with curl:
-        </p>
+            script when trying to write a log of concatenated strings, because it retrieves the dangerous login string without santizing it: </p>
+            <p><code>indexPage += "&lt;li&gt;" + results[count].login + " checked in at " + results[count].lat + ", " + results[count].lng ... "&lt;/li&gt;";</code></p>
+            <p>Knowing all this, I was able to get a simple "hello" alert to appear on the home page after running the following
+            command with curl:</p>
             <div class="screenshotDiv">
                 <h4>Sample Cross Site Scripting Curl Command</h4>
                 <img src="./CrossSiteScriptingCurlCommandJordan-Marsh.png" alt="XSS Sample Curl Command" style="width: 80%; height:80%;">
@@ -185,7 +185,6 @@
     of privacy.
 </p>
 
-<body>
 
 
 </body>
