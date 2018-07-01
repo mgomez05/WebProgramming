@@ -20,26 +20,36 @@ h2 {
     border-style: solid;
     border-color: green;
     background-color: yellowgreen;
-    padding-left: 10px;
     text-align: center;
+}
+.indent {
+    text-indent: 2em;
 }
 
 p {
-    text-indent: 2em;
+    
     border-style: solid;
     border-color: darkseagreen;
 }
 
 img {
-
+    
+    border: solid; 
+    border-color: black;
 }
 
 .screenshotDiv {
-    border: solid 1px; 
+    text-align: center;
+    border: solid; 
+    border-color: green;
     padding: 10px; 
+    
     
 }
 
+ul {
+    list-style-type: none;
+}
 
 h3 {
     border-style: solid;
@@ -48,3 +58,21 @@ h3 {
     padding-left: 10px;
 }
 
+h4 {
+    margin: 3px;
+}
+
+code {
+    background-color: lightgray;
+    padding: 3px;
+    border: solid;
+    border-color: black;
+}
+
+.resolution {
+    border-style: solid;
+    border-color: green;
+    background-color: yellowgreen;
+    padding: 3px;
+    text-align: center;
+}
