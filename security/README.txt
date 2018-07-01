@@ -7,8 +7,7 @@ provided, and testing out different vulnerabilities with black box and white box
 using both the online version of the web application and a locally run version, I came
 to several conclusions about the app and recorded them in a file named index.html. The file
 contains descriptions of the app, the methodology for my testing, an abstract of my findings,
-a list of issues for the app (complete with the location, severity, proof, and resolution for each one), and 
-a conclusion.
+a list of issues for the app (complete with the location, severity, proof, and resolution for each one), and a conclusion.
 
 ---------Correctly Implemented Aspects--------
 I have correctly implemented all aspects of the assignment. I tested the web application for
